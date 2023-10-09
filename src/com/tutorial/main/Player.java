@@ -14,6 +14,7 @@ public class Player extends GameObject{
 	public static boolean isBlinking = false;
 	private int blinkInterval = 25; // Blink interval in milliseconds
 	private boolean shouldRenderPlayer = true;
+	static boolean shieldUp = false;
 
 
 	public Player(int x, int y, ID id, Handler handler) {
@@ -44,10 +45,13 @@ public class Player extends GameObject{
 	
 
 	public void render(Graphics g) {
-	    if (!isBlinking) {
+	    if (!isBlinking && shieldUp == false) {
 	        g.setColor(Color.green);
 	        g.fillRect((int)x, (int)y, 32, 32);
-	    }
+	    } else if (!isBlinking && shieldUp == true) {
+			g.setColor(Color.lightGray);
+	        g.fillRect((int)x, (int)y, 32, 32);
+		}
 	}
 
 	
@@ -64,7 +68,7 @@ public class Player extends GameObject{
 		    
 		    
 			
-			if(tempObject.getId() == ID.BasicEnemy) {
+			if(tempObject.getId() == ID.BasicEnemy && shieldUp == false) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					HUD.HEALTH -= 35;
 					lastCollisionTime = currentTime;
@@ -104,15 +108,33 @@ public class Player extends GameObject{
 				}
 			}
 				
-			else if(tempObject.getId() == ID.HardEnemy) {
+			else if(tempObject.getId() == ID.HardEnemy && shieldUp == false) {
 					if(getBounds().intersects(tempObject.getBounds())) {
 						HUD.HEALTH -= 37;
 						lastCollisionTime = currentTime;
 				}
 			}
-			else if(tempObject.getId() == ID.LunaiticEnemy) {
+			else if(tempObject.getId() == ID.LunaiticEnemy && shieldUp == false) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 41;
+					HUD.HEALTH -= 51;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.BasicEnemy && shieldUp == true) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD.HEALTH -= 17;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.HardEnemy && shieldUp == true) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD.HEALTH -= 19;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.LunaiticEnemy && shieldUp == true) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD.HEALTH -= 28;
 					lastCollisionTime = currentTime;
 				}
 			}

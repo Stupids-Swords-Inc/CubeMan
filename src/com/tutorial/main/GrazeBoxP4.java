@@ -17,7 +17,7 @@ public class GrazeBoxP4 extends GameObject{
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle((int)x, (int)y, 54, 54);
+		return new Rectangle((int)x, (int)y, 62, 62);
 	}
 
 	

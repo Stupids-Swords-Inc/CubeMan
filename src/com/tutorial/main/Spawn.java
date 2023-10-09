@@ -400,6 +400,7 @@ public class Spawn {
 					}
 					if(hud.getLevel() == 25) {
 						handler.clearEnemys();
+						Game.gameState = STATE.End;
 					}
 				}else if(game.diff == 2) {
 					if(hud.getLevel() == 1.5) {
@@ -485,6 +486,7 @@ public class Spawn {
 					}
 					if(hud.getLevel() == 25) {
 						handler.clearEnemys();
+						Game.gameState = STATE.End;
 					}
 				}
 			}
@@ -618,6 +620,7 @@ public class Spawn {
 					}
 					if(hud.getLevel() == 25) {
 						handler.clearEnemys();
+						Game.gameState = STATE.End;
 					}
 				}else if(game.diff == 2) {
 					if(hud.getLevel() == 1.5) {
@@ -703,6 +706,7 @@ public class Spawn {
 					}
 					if(hud.getLevel() == 25) {
 						handler.clearEnemys();
+						Game.gameState = STATE.End;
 					}
 				}
 			}

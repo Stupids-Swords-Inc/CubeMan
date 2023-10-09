@@ -53,11 +53,18 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObject = handler.object.get(i);
 			
 			if(tempObject.getId() == ID.Player) {
+				if (Player.shieldUp == false) {
+					if(key == KeyEvent.VK_W) { tempObject.setVelY(-HUD.speed); keyDown[0]=true; }
+					if(key == KeyEvent.VK_S) { tempObject.setVelY(HUD.speed); keyDown[1]=true; }
+					if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed); keyDown[2]=true; }
+					if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed); keyDown[3]=true; }
+				} else if (Player.shieldUp == true) {
+					if(key == KeyEvent.VK_W) { tempObject.setVelY(-HUD.speed + 4); keyDown[0]=true; }
+					if(key == KeyEvent.VK_S) { tempObject.setVelY(HUD.speed - 4); keyDown[1]=true; }
+					if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed - 4); keyDown[2]=true; }
+					if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed + 4); keyDown[3]=true; }	
+				}
 				
-				if(key == KeyEvent.VK_W) { tempObject.setVelY(-HUD.speed); keyDown[0]=true; }
-				if(key == KeyEvent.VK_S) { tempObject.setVelY(HUD.speed); keyDown[1]=true; }
-				if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed); keyDown[2]=true; }
-				if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed); keyDown[3]=true; }
 				
 				
 				if(Game.gameState == STATE.GameP1 || Game.gameState == STATE.GameP2) {
@@ -68,6 +75,29 @@ public class KeyInput extends KeyAdapter{
 						}
 					}
 				}
+
+				if(Game.gameState == STATE.GameP1 || Game.gameState == STATE.GameP2 || Game.gameState == STATE.GameP4 || Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+					if(key == KeyEvent.VK_E) {
+						if (Player.shieldUp == false) {
+							Player.shieldUp = true;
+							keyDown[0]=false;
+							keyDown[1]=false;
+							keyDown[2]=false;
+							keyDown[3]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						} else if (Player.shieldUp == true) {
+							Player.shieldUp = false;
+							keyDown[0]=false;
+							keyDown[1]=false;
+							keyDown[2]=false;
+							keyDown[3]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						}
+					}
+				}
+
 				if(key == KeyEvent.VK_ESCAPE) {
 					Game.gameState = STATE.Menu;
 					
@@ -90,12 +120,18 @@ public class KeyInput extends KeyAdapter{
 			}
 				
 			if(tempObject.getId() == ID.Player2) {
+				if (Player2.shieldUp == false) {
 					if(key == KeyEvent.VK_UP) { tempObject.setVelY(-HUD2.speed); keyDown[4]=true; }
 					if(key == KeyEvent.VK_DOWN) { tempObject.setVelY(HUD2.speed); keyDown[5]=true; }
 					if(key == KeyEvent.VK_LEFT) { tempObject.setVelX(-HUD2.speed); keyDown[6]=true; }
 					if(key == KeyEvent.VK_RIGHT) { tempObject.setVelX(HUD2.speed); keyDown[7]=true; }
+				} else if (Player2.shieldUp == true) {
+					if(key == KeyEvent.VK_UP) { tempObject.setVelY(-HUD2.speed + 4); keyDown[4]=true; }
+					if(key == KeyEvent.VK_DOWN) { tempObject.setVelY(HUD2.speed - 4); keyDown[5]=true; }
+					if(key == KeyEvent.VK_LEFT) { tempObject.setVelX(-HUD2.speed + 4); keyDown[6]=true; }
+					if(key == KeyEvent.VK_RIGHT) { tempObject.setVelX(HUD2.speed - 4); keyDown[7]=true; }
+				}
 
-				
 				if(Game.gameState == STATE.GameP2) {
 					if(KeyPresses2 >= 1) {
 						if(key == KeyEvent.VK_CONTROL) {
@@ -103,6 +139,28 @@ public class KeyInput extends KeyAdapter{
 							KeyPresses2--;
 						}
 				}
+				}
+
+				if(Game.gameState == STATE.GameP2 || Game.gameState == STATE.GameP4 || Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+					if(key == KeyEvent.VK_PERIOD) {
+						if (Player2.shieldUp == false) {
+							Player2.shieldUp = true;
+							keyDown[4]=false;
+							keyDown[5]=false;
+							keyDown[6]=false;
+							keyDown[7]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						} else if (Player2.shieldUp == true) {
+							Player2.shieldUp = false;
+							keyDown[4]=false;
+							keyDown[5]=false;
+							keyDown[6]=false;
+							keyDown[7]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						}
+					}
 				}
 				}
 			

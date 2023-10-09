@@ -17,7 +17,7 @@ public class GrazeBoxP1 extends GameObject{
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle((int)x, (int)y, 54, 54);
+		return new Rectangle((int)x, (int)y, 62, 62);
 	}
 
 	
@@ -58,7 +58,9 @@ public class GrazeBoxP1 extends GameObject{
 			
 			GameObject tempObject = handler.object.get(i);
 		    
-		    
+		if (Player.shieldUp == false) {
+
+		
 			
 			if(tempObject.getId() == ID.BasicEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
@@ -124,6 +126,7 @@ public class GrazeBoxP1 extends GameObject{
 		        return; 
 		    }
 			
+		}
 			
 	    }
 	    

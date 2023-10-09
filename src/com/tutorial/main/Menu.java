@@ -105,6 +105,8 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				Game.gameState = STATE.Menu;
 				
+				Player.shieldUp = false;
+				Player2.shieldUp = false;
 				
 				Spawn.scoreKeep = 0;
 				HUD.setLevel(0.0f);
