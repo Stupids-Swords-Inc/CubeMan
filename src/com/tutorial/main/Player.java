@@ -112,7 +112,7 @@ public class Player extends GameObject{
 			}
 			else if(tempObject.getId() == ID.LunaiticEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 41;
+					HUD.HEALTH -= 51;
 					lastCollisionTime = currentTime;
 				}
 			}

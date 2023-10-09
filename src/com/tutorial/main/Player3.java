@@ -110,7 +110,7 @@ long currentTime = System.currentTimeMillis();
 			}
 			else if(tempObject.getId() == ID.LunaiticEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD3.HEALTH -= 41;
+					HUD3.HEALTH -= 51;
 					lastCollisionTime = currentTime;
 				}
 			}
