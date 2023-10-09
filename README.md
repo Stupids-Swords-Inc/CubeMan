@@ -7,7 +7,7 @@ You should try to run it, but no guarantees
 
 To run the game: download java 8+ and download the game jar from one of the releases
 
-To run docker:
+To run the game with docker:
 
 cd into_the_directory
 
