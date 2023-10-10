@@ -58,7 +58,7 @@ public class HUD2 {
 		g.drawRect(715, 15, 200 + bounds2, 32);
 		
 		g.drawString("Player2", 870, 13);
-		g.drawString("GRAZE: " + (int) graze, 755, 13);
+		g.drawString("GRAZE: " + (int) graze, 705, 13);
 		
 		if(HEALTH <= 0 && Game.showExtraStats == false) {
 			g.setColor(Color.WHITE);
@@ -70,6 +70,7 @@ public class HUD2 {
 			g.drawString("SPD: " + speed, 715, 94);
 			g.drawString("reviveTimer: " + reviveTimer, 715, 109);
 			g.drawString("canRevive: " + canRevive, 715, 124);
+			g.drawString("SHIELD: " + Player2.shieldUp, 715, 139);
 		}
 	}
 	

@@ -58,7 +58,7 @@ public class HUD3 {
 		g.drawRect(715, 615, 200 + bounds2, 32);
 		
 		g.drawString("Player3", 870, 613);
-		g.drawString("GRAZE: " + (int) graze, 755, 613);
+		g.drawString("GRAZE: " + (int) graze, 705, 613);
 		
 		if(HEALTH <= 0 && Game.showExtraStats == false) {
 			g.setColor(Color.WHITE);
@@ -70,6 +70,7 @@ public class HUD3 {
 			g.drawString("SPD: " + speed, 715, 594);
 			g.drawString("reviveTimer: " + reviveTimer, 715, 559);
 			g.drawString("canRevive: " + canRevive, 715, 574);
+			g.drawString("SHIELD: " + Player3.shieldUp, 715, 539);
 		}
 	}
 	

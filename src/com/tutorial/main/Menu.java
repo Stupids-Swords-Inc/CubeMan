@@ -107,6 +107,7 @@ public class Menu extends MouseAdapter{
 				
 				Player.shieldUp = false;
 				Player2.shieldUp = false;
+				Player3.shieldUp = false;
 				
 				Spawn.scoreKeep = 0;
 				HUD.setLevel(0.0f);

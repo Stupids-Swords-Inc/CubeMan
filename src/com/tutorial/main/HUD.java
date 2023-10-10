@@ -74,6 +74,7 @@ public class HUD {
 			g.drawString("SPD: " + speed, 15, 94);
 			g.drawString("reviveTimer: " + reviveTimer, 15, 109);
 			g.drawString("canRevive: " + canRevive, 15, 124);
+			g.drawString("SHIELD: " + Player.shieldUp, 15, 139);
 		}
 	}
 	

@@ -165,17 +165,75 @@ public class KeyInput extends KeyAdapter{
 				}
 			
 			if(tempObject.getId() == ID.Player3) {
-					if(key == KeyEvent.VK_I) { tempObject.setVelY(-HUD3.speed); keyDown[8]=true; }
-					if(key == KeyEvent.VK_K) { tempObject.setVelY(HUD3.speed); keyDown[9]=true; }
-					if(key == KeyEvent.VK_J) { tempObject.setVelX(-HUD3.speed); keyDown[10]=true; }
-					if(key == KeyEvent.VK_L) { tempObject.setVelX(HUD3.speed); keyDown[11]=true; }
+					if (Player3.shieldUp == false) {
+						if(key == KeyEvent.VK_I) { tempObject.setVelY(-HUD3.speed); keyDown[8]=true; }
+						if(key == KeyEvent.VK_K) { tempObject.setVelY(HUD3.speed); keyDown[9]=true; }
+						if(key == KeyEvent.VK_J) { tempObject.setVelX(-HUD3.speed); keyDown[10]=true; }
+						if(key == KeyEvent.VK_L) { tempObject.setVelX(HUD3.speed); keyDown[11]=true; }
+					} else if (Player3.shieldUp == true) {
+						if(key == KeyEvent.VK_I) { tempObject.setVelY(-HUD3.speed + 4); keyDown[8]=true; }
+						if(key == KeyEvent.VK_K) { tempObject.setVelY(HUD3.speed - 4); keyDown[9]=true; }
+						if(key == KeyEvent.VK_J) { tempObject.setVelX(-HUD3.speed + 4); keyDown[10]=true; }
+						if(key == KeyEvent.VK_L) { tempObject.setVelX(HUD3.speed - 4); keyDown[11]=true; }
+					}
+
+				if(Game.gameState == STATE.GameP4 || Game.gameState == STATE.PvPP4) {
+					if(key == KeyEvent.VK_SEMICOLON) {
+						if (Player3.shieldUp == false) {
+							Player3.shieldUp = true;
+							keyDown[8]=false;
+							keyDown[9]=false;
+							keyDown[10]=false;
+							keyDown[11]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						} else if (Player3.shieldUp == true) {
+							Player3.shieldUp = false;
+							keyDown[8]=false;
+							keyDown[9]=false;
+							keyDown[10]=false;
+							keyDown[11]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						}
+					}
+				}
 				}
 			
 			if(tempObject.getId() == ID.Player4) {
+				if (Player4.shieldUp == false) {
 					if(key == KeyEvent.VK_T) { tempObject.setVelY(-HUD4.speed); keyDown[12]=true; }
 					if(key == KeyEvent.VK_G) { tempObject.setVelY(HUD4.speed); keyDown[13]=true; }
 					if(key == KeyEvent.VK_F) { tempObject.setVelX(-HUD4.speed); keyDown[14]=true; }
 					if(key == KeyEvent.VK_H) { tempObject.setVelX(HUD4.speed); keyDown[15]=true; }
+				} else if (Player4.shieldUp == true) {
+					if(key == KeyEvent.VK_T) { tempObject.setVelY(-HUD4.speed + 4); keyDown[12]=true; }
+					if(key == KeyEvent.VK_G) { tempObject.setVelY(HUD4.speed - 4); keyDown[13]=true; }
+					if(key == KeyEvent.VK_F) { tempObject.setVelX(-HUD4.speed + 4); keyDown[14]=true; }
+					if(key == KeyEvent.VK_H) { tempObject.setVelX(HUD4.speed - 4); keyDown[15]=true; }
+				}
+
+					if(Game.gameState == STATE.GameP4 || Game.gameState == STATE.PvPP4) {
+					if(key == KeyEvent.VK_Y) {
+						if (Player4.shieldUp == false) {
+							Player4.shieldUp = true;
+							keyDown[12]=false;
+							keyDown[13]=false;
+							keyDown[14]=false;
+							keyDown[15]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						} else if (Player4.shieldUp == true) {
+							Player4.shieldUp = false;
+							keyDown[12]=false;
+							keyDown[13]=false;
+							keyDown[14]=false;
+							keyDown[15]=false;
+							tempObject.setVelX(0);
+							tempObject.setVelY(0);
+						}
+					}
+				}
 				}
 			}
 		}

@@ -58,7 +58,9 @@ public class GrazeBoxP3 extends GameObject{
 			
 			GameObject tempObject = handler.object.get(i);
 		    
-		    
+		    if (Player3.shieldUp == false) {
+
+			
 			
 			if(tempObject.getId() == ID.BasicEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
@@ -124,7 +126,7 @@ public class GrazeBoxP3 extends GameObject{
 		        return; 
 		    }
 			
-			
+		}
 	    }
 	    
 	}

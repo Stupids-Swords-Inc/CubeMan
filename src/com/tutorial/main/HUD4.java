@@ -70,6 +70,7 @@ public class HUD4 {
 			g.drawString("SPD: " + speed, 15, 594);
 			g.drawString("reviveTimer: " + reviveTimer, 15, 559);
 			g.drawString("canRevive: " + canRevive, 15, 574);
+			g.drawString("SHIELD: " + Player4.shieldUp, 115, 549);
 		}
 	}
 	

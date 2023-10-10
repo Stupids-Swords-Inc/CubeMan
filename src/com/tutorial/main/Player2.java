@@ -144,6 +144,45 @@ long currentTime = System.currentTimeMillis();
 					lastCollisionTime = currentTime;
 				}
 			}
+			else if(tempObject.getId() == ID.Player && Player.shieldUp == true && shieldUp == true && HUD.HEALTH > HUD2.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD2.HEALTH -= 6;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.Player && Player.shieldUp == true && shieldUp == true && HUD.HEALTH < HUD2.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+				return;
+			}
+			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && Game.gameState == STATE.PvPP4) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD2.HEALTH -= 12;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && shieldUp == true && HUD3.HEALTH > HUD2.HEALTH && Game.gameState == STATE.PvPP4) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD2.HEALTH -= 6;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && shieldUp == true && HUD3.HEALTH < HUD2.HEALTH && Game.gameState == STATE.PvPP4) {
+				return;
+			}
+			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && Game.gameState == STATE.PvPP4) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD2.HEALTH -= 12;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH > HUD2.HEALTH && Game.gameState == STATE.PvPP4) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					HUD2.HEALTH -= 6;
+					lastCollisionTime = currentTime;
+				}
+			}
+			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH < HUD2.HEALTH && Game.gameState == STATE.PvPP4) {
+				return;
+			}
 			else if (currentTime - lastCollisionTime < collisionCooldown) {
 		        if (!isBlinking) {
 		            isBlinking = true;
