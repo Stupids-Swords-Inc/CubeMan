@@ -140,51 +140,51 @@ public class Player extends GameObject{
 					lastCollisionTime = currentTime;
 				}
 			}
-			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 12;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && shieldUp == true && HUD2.HEALTH > HUD.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 6;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && shieldUp == true && HUD2.HEALTH < HUD.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
-				return;
-			}
-			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && Game.gameState == STATE.PvPP4) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 12;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && shieldUp == true && HUD3.HEALTH > HUD.HEALTH && Game.gameState == STATE.PvPP4) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 6;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && shieldUp == true && HUD3.HEALTH < HUD.HEALTH && Game.gameState == STATE.PvPP4) {
-				return;
-			}
-			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && Game.gameState == STATE.PvPP4) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 12;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH > HUD.HEALTH && Game.gameState == STATE.PvPP4) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 6;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH < HUD.HEALTH && Game.gameState == STATE.PvPP4) {
-				return;
-			}
+//			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && HUD2.HEALTH != HUD.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD.HEALTH -= 12;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && shieldUp == true && HUD2.HEALTH > HUD.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD.HEALTH -= 6;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && shieldUp == true && HUD2.HEALTH < HUD.HEALTH || HUD2.HEALTH == HUD.HEALTH && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+//				return;
+//			}
+//			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD.HEALTH -= 12;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && shieldUp == true && HUD3.HEALTH > HUD.HEALTH && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD.HEALTH -= 6;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player3 && Player3.shieldUp == true && shieldUp == true && HUD3.HEALTH < HUD.HEALTH || HUD3.HEALTH == HUD.HEALTH && Game.gameState == STATE.PvPP4) {
+//				return;
+//			}
+//			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD.HEALTH -= 12;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH > HUD.HEALTH && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD.HEALTH -= 6;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH < HUD.HEALTH || HUD4.HEALTH == HUD.HEALTH && Game.gameState == STATE.PvPP4) {
+//				return;
+//			}
 			
 			else if (currentTime - lastCollisionTime < collisionCooldown) {
 		        if (!isBlinking) {

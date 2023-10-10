@@ -12,7 +12,7 @@ public class HUD {
 	
 	private static float greenValue = 255f;
 	static int score = 0;
-	private static float level = 0;
+	static float level = 0;
 	
 	static int graze = 0;
 

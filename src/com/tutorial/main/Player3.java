@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.tutorial.main.Game.STATE;
+
 public class Player3 extends GameObject{
 	
 	Handler handler;
@@ -137,6 +139,51 @@ long currentTime = System.currentTimeMillis();
 					lastCollisionTime = currentTime;
 				}
 			}
+//			else if(tempObject.getId() == ID.Player && Player.shieldUp == true && Game.gameState == STATE.PvPP2 || Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD3.HEALTH -= 12;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player && Player.shieldUp == true && shieldUp == true && HUD.HEALTH > HUD3.HEALTH && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD3.HEALTH -= 6;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player && Player.shieldUp == true && shieldUp == true && HUD.HEALTH < HUD3.HEALTH && Game.gameState == STATE.PvPP4) {
+//				return;
+//			}
+//			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD3.HEALTH -= 12;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && shieldUp == true && HUD2.HEALTH > HUD3.HEALTH && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD3.HEALTH -= 6;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player2 && Player2.shieldUp == true && shieldUp == true && HUD2.HEALTH < HUD3.HEALTH && Game.gameState == STATE.PvPP4) {
+//				return;
+//			}
+//			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD3.HEALTH -= 12;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH > HUD3.HEALTH && Game.gameState == STATE.PvPP4) {
+//				if(getBounds().intersects(tempObject.getBounds())) {
+//					HUD3.HEALTH -= 6;
+//					lastCollisionTime = currentTime;
+//				}
+//			}
+//			else if(tempObject.getId() == ID.Player4 && Player4.shieldUp == true && shieldUp == true && HUD4.HEALTH < HUD3.HEALTH && Game.gameState == STATE.PvPP4) {
+//				return;
+//			}
 			else if (currentTime - lastCollisionTime < collisionCooldown) {
 		        if (!isBlinking) {
 		            isBlinking = true;
