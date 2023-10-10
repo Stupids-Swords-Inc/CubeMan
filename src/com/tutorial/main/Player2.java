@@ -6,8 +6,6 @@ import java.awt.Rectangle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.tutorial.main.Game.STATE;
-
 public class Player2 extends GameObject{
 	
 	Handler handler;

@@ -4,7 +4,10 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.net.*;
+import java.io.IOException;
+
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.*;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -28,6 +31,7 @@ public class Game extends Canvas implements Runnable{
 	public static boolean showTrail = true;
 	public static boolean fullscreen = false;
 	public static boolean showExtraStats = false;
+	public String playerName = "Player1";
 	
 	private Menu menu;
 	public enum STATE {
@@ -51,9 +55,19 @@ public class Game extends Canvas implements Runnable{
 		EndPvP
 	}
 	
+	
+	
 	public static STATE gameState = STATE.Menu;
 	
-	public Game() {
+	public class SomeRequest {
+	       public String text;
+	    }
+	    public class SomeResponse {
+	       public String text;
+	    }
+	
+	public Game() throws IOException {
+		
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler, hud);
@@ -316,7 +330,12 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	public static void main(String agrs[]) {
-		new Game();
+		try {
+			new Game();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
