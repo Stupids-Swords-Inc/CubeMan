@@ -1,15 +1,5 @@
 package com.tutorial.main;
 
-import com.tutorial.main.entity.Spawn;
-import com.tutorial.main.player.KeyInput;
-import com.tutorial.main.ui.hud.HUD;
-import com.tutorial.main.ui.hud.HUD2;
-import com.tutorial.main.ui.hud.HUD3;
-import com.tutorial.main.ui.hud.HUD4;
-import com.tutorial.main.ui.screens.Menu;
-import com.tutorial.main.entity.MenuParticle;
-import com.tutorial.main.ui.screens.Shop;
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -105,11 +95,11 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public synchronized void stop() {
-		try {
+		try{
 			thread.join();
 			running = false;
 			
-		} catch(Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

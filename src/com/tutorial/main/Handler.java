@@ -4,21 +4,12 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 
 import com.tutorial.main.Game.STATE;
-import com.tutorial.main.entity.*;
-import com.tutorial.main.entity.player.*;
-import com.tutorial.main.ui.hud.HUD;
-import com.tutorial.main.ui.hud.HUD2;
-import com.tutorial.main.ui.hud.HUD3;
-import com.tutorial.main.ui.hud.HUD4;
 
 public class Handler {
 	
-	public LinkedList<GameObject> object = new LinkedList<GameObject>();
+	LinkedList<GameObject> object = new LinkedList<GameObject>();
 	
 	public static int spd = 6;
-	static int score = 0;
-	private static float level = 0;
-
 	
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
@@ -47,31 +38,37 @@ public class Handler {
 				if(tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2 || tempObject.getId() == ID.Player3 || tempObject.getId() == ID.Player4) {
 					object.clear();
 					addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
+					addObject(new GrazeBoxP1((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
 					addObject(new Player2((int)tempObject.getX(), (int)tempObject.getY(), ID.Player2, this));
 					addObject(new GrazeBoxP2((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
 					addObject(new Player3((int)tempObject.getX(), (int)tempObject.getY(), ID.Player3, this));
 					addObject(new GrazeBoxP3((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
 					addObject(new Player4((int)tempObject.getX(), (int)tempObject.getY(), ID.Player4, this));
 					addObject(new GrazeBoxP4((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
+					}
+				} else if (Game.gameState == STATE.GameP2 || Game.gameState == STATE.PvPP2) {
+					if(tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2) {
+						object.clear();
+						addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
+						addObject(new GrazeBoxP1((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
+						addObject(new Player2((int)tempObject.getX(), (int)tempObject.getY(), ID.Player2, this));
+						addObject(new GrazeBoxP2((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
+					}
+				} else if (Game.gameState == STATE.GameP1) {
+					if(tempObject.getId() == ID.Player) {
+						object.clear();
+						addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
+						addObject(new GrazeBoxP1((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
+					}
 				}
-			} else if (Game.gameState == STATE.GameP2 || Game.gameState == STATE.PvPP2) {
-				if(tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2) {
-					object.clear();
-					addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
-					addObject(new GrazeBoxP1((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
-					addObject(new Player2((int)tempObject.getX(), (int)tempObject.getY(), ID.Player2, this));
-					addObject(new GrazeBoxP2((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
-				}
-			} else if (Game.gameState == STATE.GameP1) {
-				if(tempObject.getId() == ID.Player) {
-					object.clear();
-					addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player, this));
-					addObject(new GrazeBoxP1((int)tempObject.getX(), (int)tempObject.getY(), ID.GrazeBox, this));
-				}
-			}
-		}
-	}
-
+			
+			
+			
+				
+			}}
+	
+	
+		
 		public void allowRevive() {
 			for(int i = 0; i < object.size(); i++) {
 				GameObject tempObject = object.get(i);
@@ -94,7 +91,15 @@ public class Handler {
 				}
 		}
 	}
-
+	
+				
+			
+			
+			
+			
+		
+	
+	
 	public void addObject(GameObject object) {
 		this.object.add(object);
 	}
@@ -102,4 +107,5 @@ public class Handler {
 	public void removeObject(GameObject object) {
 		this.object.remove(object);
 	}
+	
 }
