@@ -9,4 +9,4 @@ RUN mvn package
 RUN cd /src
 RUN javac com/tutorial/main/Game.java
 
-CMD [ "java", "com.tutorial.main.Game" ]
+CMD [ "java", "com.kagaries.main.Game" ]

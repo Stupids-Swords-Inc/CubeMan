@@ -42,7 +42,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.tutorial.main.Game</mainClass>
+              <mainClass>com.kagaries.main.Game</mainClass>
             </manifest>
           </archive>
         </configuration>
