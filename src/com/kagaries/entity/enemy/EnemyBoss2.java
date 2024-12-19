@@ -11,25 +11,18 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class EnemyBoss2 extends GameObject {
-	
-	private Handler handler;
+public class EnemyBoss2 extends Enemy {
 	
 	private int timer = 80;
 	private int timer2 = 50;
 	private int timer3 = 100;
-	private Color col;
 	Random r = new Random();
 
 	public EnemyBoss2(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
-		
-		this.handler = handler;
+		super(x, y, id, handler);
 		
 		velX = 0;
 		velY = 1;
-		
-		col = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255));
 	}
 	
 	public Rectangle getBounds() {
@@ -68,7 +61,7 @@ public class EnemyBoss2 extends GameObject {
 
 	
 	public void render(Graphics g) {
-		g.setColor(col);
+		g.setColor(this.color);
 		g.fillRect((int)x, (int)y, 155, 155);
 	}
 

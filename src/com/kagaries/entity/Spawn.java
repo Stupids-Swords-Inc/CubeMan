@@ -10,16 +10,14 @@ import com.kagaries.ui.hud.HUD;
 
 public class Spawn {
 	
-	private Handler handler;
-	private HUD hud;
-	private Game game;
-	private Random r = new Random();
+	private final Handler handler;
+	private final Game game;
+	private final Random r = new Random();
 	
 	public static int scoreKeep = 0;
 	
-	public Spawn(Handler handler, HUD hud, Game game) {
+	public Spawn(Handler handler, Game game) {
 		this.handler = handler;
-		this.hud = hud;
 		this.game = game;
 	}
 	
@@ -39,7 +37,7 @@ public class Spawn {
 					handler.addObject(new SlowEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SlowEnemy, handler));
 					handler.addObject(new SlowEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SlowEnemy, handler));
 					handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-					handler.addObject(new RandomEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+					handler.addObject(new RandomEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.RandomEnemy, handler));
 					handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
 				}
 				
@@ -110,9 +108,9 @@ public class Spawn {
 				if(handler.getLevel() == 25.5) {
 					handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 					handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 				}
 			}else if(game.diff == 1) {
 				if(handler.getLevel() == 1.5) {
@@ -183,15 +181,15 @@ public class Spawn {
 				}
 			}else if(game.diff == 2) {
 				if(handler.getLevel() == 1.5) {
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
 					handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 				}
 				
 				if(handler.getLevel() == 4.0) {
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 					
 				}
 				
@@ -201,41 +199,41 @@ public class Spawn {
 				
 				if(handler.getLevel() == 7.5) {
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
 				}
 				
 				if(handler.getLevel() == 8.5) {
 					handler.clearEnemys();
-					handler.addObject(new LunaiticBoss(Game.WIDTH / 2, -96, ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticBoss(Game.WIDTH / 2, -96, ID.LunaiticBoss, handler));
 					
 				}
 				
 				if(handler.getLevel() == 12.0) {
 					handler.clearEnemys();
 					handler.allowRevive();
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 				}
 				
 				if(handler.getLevel() == 14.5) {
 					handler.clearEnemys();
-					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 					handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+					handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
@@ -249,16 +247,16 @@ public class Spawn {
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.BasicEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+					handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 					handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 					handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 				}
 				if(handler.getLevel() == 18.5) {
 					handler.clearEnemys();
-					handler.addObject(new LunaiticBoss2(Game.WIDTH / 2, -96, ID.LunaiticEnemy, handler));
+					handler.addObject(new LunaiticBoss2(Game.WIDTH / 2, -96, ID.LunaiticBoss2, handler));
 				}
 				if(handler.getLevel() == 25) {
 					handler.clearEnemys();
@@ -342,9 +340,9 @@ public class Spawn {
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 					}
 				}else if(game.diff == 1) {
 					if(handler.getLevel() == 1.5) {
@@ -412,54 +410,54 @@ public class Spawn {
 					}
 					
 					if(handler.getLevel() == 4.0) {
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 						
 					}
 					
 					if(handler.getLevel() == 5.5) {
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 					}
 					
 					if(handler.getLevel() == 7.5) {
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
 					}
 					
 					if(handler.getLevel() == 8.5) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticBoss(Game.WIDTH / 2, -96, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticBoss(Game.WIDTH / 2, -96, ID.LunaiticBoss, handler));
 						
 					}
 					
 					if(handler.getLevel() == 12.0) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					}
 					
 					if(handler.getLevel() == 14.5) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
@@ -473,16 +471,16 @@ public class Spawn {
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.BasicEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 					}
 					if(handler.getLevel() == 18.5) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticBoss2(Game.WIDTH / 2, -96, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticBoss2(Game.WIDTH / 2, -96, ID.LunaiticBoss2, handler));
 					}
 					if(handler.getLevel() == 25) {
 						handler.clearEnemys();
@@ -560,9 +558,9 @@ public class Spawn {
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 					}
 				}else if(game.diff == 1) {
 					if(handler.getLevel() == 1.5) {
@@ -630,54 +628,54 @@ public class Spawn {
 					}
 					
 					if(handler.getLevel() == 4.0) {
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 						
 					}
 					
 					if(handler.getLevel() == 5.5) {
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 					}
 					
 					if(handler.getLevel() == 7.5) {
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
 					}
 					
 					if(handler.getLevel() == 8.5) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticBoss(Game.WIDTH / 2, -96, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticBoss(Game.WIDTH / 2, -96, ID.LunaiticBoss, handler));
 						
 					}
 					
 					if(handler.getLevel() == 12.0) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 					}
 					
 					if(handler.getLevel() == 14.5) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(Game.WIDTH / 2-34, 5, ID.LunaiticShooterEnemy, handler));
+						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
@@ -691,16 +689,16 @@ public class Spawn {
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
 						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.BasicEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
+						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
 					}
 					if(handler.getLevel() == 18.5) {
 						handler.clearEnemys();
-						handler.addObject(new LunaiticBoss2(Game.WIDTH / 2, -96, ID.LunaiticEnemy, handler));
+						handler.addObject(new LunaiticBoss2(Game.WIDTH / 2, -96, ID.LunaiticBoss2, handler));
 					}
 					if(handler.getLevel() == 25) {
 						handler.clearEnemys();

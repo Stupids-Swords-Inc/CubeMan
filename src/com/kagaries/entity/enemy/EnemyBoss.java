@@ -11,9 +11,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class EnemyBoss extends GameObject {
-	
-	private Handler handler;
+public class EnemyBoss extends Enemy {
 	
 	private int timer = 80;
 	private int timer2 = 50;
@@ -21,9 +19,7 @@ public class EnemyBoss extends GameObject {
 	Random r = new Random();
 
 	public EnemyBoss(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
-		
-		this.handler = handler;
+		super(x, y, id, handler);
 		
 		velX = 0;
 		velY = 1;
@@ -65,7 +61,7 @@ public class EnemyBoss extends GameObject {
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
+		g.setColor(this.color);
 		g.fillRect((int)x, (int)y, 128, 128);
 	}
 

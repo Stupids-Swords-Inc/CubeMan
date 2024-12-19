@@ -11,16 +11,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class ShooterEnemy extends GameObject {
-	
-	private Handler handler;
+public class ShooterEnemy extends Enemy {
 	
 	Random r = new Random();
 
 	public ShooterEnemy(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
-		
-		this.handler = handler;
+		super(x, y, id, handler);
 		
 		velX = 1;
 		velY = 0;
@@ -41,7 +37,7 @@ public class ShooterEnemy extends GameObject {
 			if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;
 			if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
 			
-			handler.addObject(new Trail(x, y, ID.Trail, Color.lightGray, 38, 38, 0.1f, handler));
+			handler.addObject(new Trail(x, y, ID.Trail, this.color, 38, 38, 0.1f, handler));
 		}
 		
 		
@@ -49,7 +45,7 @@ public class ShooterEnemy extends GameObject {
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.lightGray);
+		g.setColor(this.color);
 		g.fillRect((int)x, (int)y, 25, 25);
 	}
 

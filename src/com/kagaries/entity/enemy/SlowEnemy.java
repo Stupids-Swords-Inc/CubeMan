@@ -10,12 +10,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class SlowEnemy extends GameObject {
+public class SlowEnemy extends Enemy {
 	
 	private Handler handler;
 
 	public SlowEnemy(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
+		super(x, y, id, handler);
 		
 		this.handler = handler;
 		
@@ -35,12 +35,12 @@ public class SlowEnemy extends GameObject {
 		if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;
 		if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.pink, 32, 32, 0.15f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, this.color, 32, 32, 0.15f, handler));
 	}
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.pink);
+		g.setColor(this.color);
 		g.fillRect((int)x, (int)y, 32, 32);
 	}
 

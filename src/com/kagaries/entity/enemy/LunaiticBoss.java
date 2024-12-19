@@ -11,17 +11,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class LunaiticBoss extends GameObject {
-	
-	private Handler handler;
-	
+public class LunaiticBoss extends Enemy {
 	private int timer = 30;
 	private int timer2 = 20;
 	private int timer3 = 10;
 	Random r = new Random();
 
 	public LunaiticBoss(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
+		super(x, y, id, handler);
 		
 		this.handler = handler;
 		
@@ -65,7 +62,7 @@ public class LunaiticBoss extends GameObject {
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
+		g.setColor(this.color);
 		g.fillRect((int)x, (int)y, 128, 128);
 	}
 

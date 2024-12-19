@@ -11,27 +11,18 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class RandomEnemy extends GameObject {
-	
-	private Handler handler;
-	
+public class RandomEnemy extends Enemy {
+
 	Random r = new Random();
 
 	public RandomEnemy(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
-		
-		this.handler = handler;
+		super(x, y, id, handler);
 		
 		velX = 8;
 		velY = 6;
 	}
-	
-	public Rectangle getBounds() {
-		return new Rectangle((int)x, (int)y, 16, 16);
-	}
 
-	
-	public void tick() {
+    public void tick() {
 		x += velX;
 		y += velY;
 		
@@ -50,13 +41,6 @@ public class RandomEnemy extends GameObject {
 		x = Game.clamp(x, -1, Game.WIDTH - 48);
 		y = Game.clamp(y, -1, Game.HEIGHT - 71);
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.15f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, this.color, 16, 16, 0.15f, handler));
 	}
-
-	
-	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect((int)x, (int)y, 16, 16);
-	}
-
 }

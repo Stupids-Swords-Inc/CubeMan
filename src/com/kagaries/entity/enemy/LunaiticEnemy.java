@@ -11,14 +11,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class LunaiticEnemy extends GameObject {
-	
-	private Handler handler;
+public class LunaiticEnemy extends Enemy {
 	
 	Random r = new Random();
 
 	public LunaiticEnemy(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
+		super(x, y, id, handler);
 		
 		this.handler = handler;
 		
@@ -48,12 +46,12 @@ public class LunaiticEnemy extends GameObject {
 		x = Game.clamp(x, -1, Game.WIDTH - 48);
 		y = Game.clamp(y, -1, Game.HEIGHT - 71);
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, 32, 32, 0.15f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, this.color, 32, 32, 0.15f, handler));
 	}
 
 	
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
+		g.setColor(this.color);
 		g.fillRect((int)x, (int)y, 32, 32);
 	}
 
