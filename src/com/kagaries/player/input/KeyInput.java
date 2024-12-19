@@ -83,8 +83,8 @@ public class KeyInput extends KeyAdapter{
 					HUD2.HEALTH = 0;
 					HUD3.HEALTH = 0;
 					HUD4.HEALTH = 0;
-					HUD.setLevel(0.0f);
-					HUD.setScore(0);
+					Handler.setLevel(0.0f);
+					Handler.setScore(0);
 					Game.gameState = STATE.End;
 					handler.clearEnemys();
 				}

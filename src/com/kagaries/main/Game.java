@@ -11,6 +11,8 @@ import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 import com.kagaries.ui.menu.Menu;
 import com.kagaries.ui.menu.Shop;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -26,40 +28,57 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	public static boolean paused = false;
 	private Handler handler;
-	private HUD hud;
+	public static HUD hud;
 	@SuppressWarnings("unused")
-	private HUD2 hud2;
-	private HUD3 hud3;
-	private HUD4 hud4;
+	public static HUD2 hud2;
+	public static HUD3 hud3;
+	public static HUD4 hud4;
 	private Spawn spawner;
 	public int diff = 0;
 	private Shop shop;
 	public static int winner = 0;
+
+	private static final StackWalker STACK_WALKER;
 	
 	public static boolean showTrail = true;
-	public static boolean fullscreen = false;
 	public static boolean showExtraStats = false;
 	
 	private Menu menu;
+
+	public enum stateType {
+		MENU,
+		GAME
+	}
+
 	public enum STATE {
-		Menu,
-		PlayerNum,
-		SelectP1,
-		SelectP2,
-		SelectP4,
-		Help,
-		Options,
-		Shop,
-		GameP1,
-		GameP2,
-		GameP4,
-		PvPPlayerNum,
-		PvPP2Select,
-		PvPP4Select,
-		PvPP2,
-		PvPP4,
-		End,
-		EndPvP
+		Menu(stateType.MENU),
+		PlayerNum(stateType.MENU),
+		SelectP1(stateType.MENU),
+		SelectP2(stateType.MENU),
+		SelectP4(stateType.MENU),
+		Help(stateType.MENU),
+		Options(stateType.MENU),
+		Shop(stateType.MENU),
+		GameP1(stateType.GAME),
+		GameP2(stateType.GAME),
+		GameP4(stateType.GAME),
+		PvPPlayerNum(stateType.MENU),
+		PvPP2Select(stateType.MENU),
+		PvPP4Select(stateType.MENU),
+		PvPP2(stateType.GAME),
+		PvPP4(stateType.GAME),
+		End(stateType.MENU),
+		EndPvP(stateType.MENU);
+
+		private stateType type;
+
+		STATE(stateType type) {
+			this.type = type;
+		}
+
+		public stateType getType() {
+			return this.type;
+		}
 	}
 	
 	public static STATE gameState = STATE.Menu;
@@ -68,20 +87,15 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler, hud);
-		menu = new Menu(this, handler, hud);
-		this.addKeyListener(new KeyInput(handler, this));
-		this.addMouseListener(menu);
-		this.addMouseListener(shop);
-	
-		
-		new Window(WIDTH, HEIGHT, "CubeMan", this);
-		
-		
+		menu = new Menu(this, handler);
+		spawner = new Spawn(handler, hud, this);
 		hud2 = new HUD2();
 		hud3 = new HUD3();
 		hud4 = new HUD4();
-		spawner = new Spawn(handler, hud, this);
-		menu = new Menu(this, handler, hud);
+		this.addKeyListener(new KeyInput(handler, this));
+		this.addMouseListener(menu);
+		this.addMouseListener(shop);
+		new Window(WIDTH, HEIGHT, "CubeMan", this);
 
 		
 		if (Game.gameState == STATE.Menu){
@@ -97,7 +111,10 @@ public class Game extends Canvas implements Runnable{
 
 			}
 		}
-		
+	}
+
+	public static Logger getLogger() {
+		return LoggerFactory.getLogger(STACK_WALKER.getCallerClass());
 	}
 	
 	public synchronized void start() {
@@ -163,7 +180,7 @@ public class Game extends Canvas implements Runnable{
 		
 		if(gameState == STATE.GameP4 || gameState == STATE.PvPP4) {
 			hud.render(g);
-			HUD2.render(g);
+			hud2.render(g);
 			hud3.render(g);
 			hud4.render(g);
 			handler.render(g);
@@ -177,7 +194,7 @@ public class Game extends Canvas implements Runnable{
 			g.drawString("PAUSED", 100, 100);
 		} else if(gameState == STATE.GameP2 || gameState == STATE.PvPP2) {
 			hud.render(g);
-			HUD2.render(g);
+			hud2.render(g);
 			handler.render(g);
 		} else if(gameState == STATE.GameP1) {
 			hud.render(g);
@@ -194,18 +211,18 @@ public class Game extends Canvas implements Runnable{
 		
 		if(!paused && gameState == STATE.GameP4) {
 			handler.tick();
-			HUD.tick();
+			hud.tick();
 			spawner.tick();
-			HUD2.tick();
-			HUD3.tick();
-			HUD4.tick();
+			hud2.tick();
+			hud3.tick();
+			hud4.tick();
 			if(HUD.HEALTH <= 0 && HUD2.HEALTH <= 0 && HUD3.HEALTH <= 0 && HUD4.HEALTH <= 0) {
 				HUD.HEALTH = 0;
 				HUD2.HEALTH = 0;
 				HUD3.HEALTH = 0;
 				HUD4.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.End;
 				handler.clearEnemys();
 			}
@@ -214,11 +231,11 @@ public class Game extends Canvas implements Runnable{
 			handler.tick();
 		}else if(!paused && gameState == STATE.PvPP4) {
 			handler.tick();
-			HUD.tick();
+			hud.tick();
 			spawner.tick();
-			HUD2.tick();
-			HUD3.tick();
-			HUD4.tick();
+			hud2.tick();
+			hud3.tick();
+			hud4.tick();
 			if(HUD.HEALTH >= 0 && HUD2.HEALTH <= 0 && HUD3.HEALTH <= 0 && HUD4.HEALTH <= 0) {
 				gameState = STATE.EndPvP;
 				Game.winner = 1;
@@ -226,8 +243,8 @@ public class Game extends Canvas implements Runnable{
 				HUD2.HEALTH = 0;
 				HUD3.HEALTH = 0;
 				HUD4.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				handler.clearEnemys();
 			} else if(HUD.HEALTH <= 0 && HUD2.HEALTH >= 0 && HUD3.HEALTH <= 0 && HUD4.HEALTH <= 0) {
 				gameState = STATE.EndPvP;
@@ -236,8 +253,8 @@ public class Game extends Canvas implements Runnable{
 				HUD2.HEALTH = 0;
 				HUD3.HEALTH = 0;
 				HUD4.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.EndPvP;
 				handler.clearEnemys();
 			} else if(HUD.HEALTH <= 0 && HUD2.HEALTH <= 0 && HUD3.HEALTH >= 0 && HUD4.HEALTH <= 0) {
@@ -247,8 +264,8 @@ public class Game extends Canvas implements Runnable{
 				HUD2.HEALTH = 0;
 				HUD3.HEALTH = 0;
 				HUD4.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.EndPvP;
 				handler.clearEnemys();
 			} else if(HUD.HEALTH <= 0 && HUD2.HEALTH <= 0 && HUD3.HEALTH <= 0 && HUD4.HEALTH >= 0) {
@@ -258,55 +275,55 @@ public class Game extends Canvas implements Runnable{
 				HUD2.HEALTH = 0;
 				HUD3.HEALTH = 0;
 				HUD4.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.EndPvP;
 				handler.clearEnemys();
 			}
 		} else if(!paused && gameState == STATE.GameP2) {
 			handler.tick();
-			HUD.tick();
+			hud.tick();
 			spawner.tick();
-			HUD2.tick();
+			hud2.tick();
 			if(HUD.HEALTH <= 0 && HUD2.HEALTH <= 0) {
 				HUD.HEALTH = 0;
 				HUD2.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.End;
 				handler.clearEnemys();
 			}
 		} else if(!paused && gameState == STATE.GameP1) {
 			handler.tick();
-			HUD.tick();
+			hud.tick();
 			spawner.tick();
 			if(HUD.HEALTH <= 0) {
 				HUD.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.End;
 				handler.clearEnemys();
 			}
 		} else if(!paused && gameState == STATE.PvPP2) {
 			handler.tick();
-			HUD.tick();
+			hud.tick();
 			spawner.tick();
-			HUD2.tick();
+			hud2.tick();
 			if(HUD.HEALTH >= 0 && HUD2.HEALTH <= 0) {
 				gameState = STATE.EndPvP;
 				Game.winner = 1;
 				HUD.HEALTH = 0;
 				HUD2.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				handler.clearEnemys();
 			} else if(HUD.HEALTH <= 0 && HUD2.HEALTH >= 0) {
 				gameState = STATE.EndPvP;
 				Game.winner = 2;
 				HUD.HEALTH = 0;
 				HUD2.HEALTH = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				gameState = STATE.EndPvP;
 				handler.clearEnemys();
 			}
@@ -328,6 +345,8 @@ public class Game extends Canvas implements Runnable{
 	public static void main(String agrs[]) {
 		new Game();
 	}
-	
-	
+
+	static {
+		STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+	}
 }

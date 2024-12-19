@@ -24,31 +24,16 @@ public class Menu extends MouseAdapter{
 	
 	private Game game;
 	private Handler handler;
-	@SuppressWarnings("unused")
-	private HUD hud;
 	
-	public Menu(Game game, Handler handler, HUD hud) {
+	public Menu(Game game, Handler handler) {
 		this.game = game;
 		this.handler = handler;
-		this.hud = hud;
 	}
 	
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		
-		
-		
-//		if(mouseOver(mx, my, 210, 150, 200, 64)) {
-//			if(Game.gameState == STATE.Menu) {
-//				Game.gameState = STATE.Game;
-//				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
-//				handler.addObject(new Player2(Game.WIDTH/2-140, Game.HEIGHT/2-140, ID.Player2, handler));
-//				handler.clearEnemys();
-//				//handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
-//				//handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
-//			}}
-		
+
 		if(mouseOver(mx, my, 210, 150, 200, 64)) {
 			if(Game.gameState == STATE.Menu) {
 				
@@ -119,13 +104,12 @@ public class Menu extends MouseAdapter{
 				
 				
 				Spawn.scoreKeep = 0;
-				HUD.setLevel(0.0f);
-				HUD.setScore(0);
+				Handler.setLevel(0.0f);
+				Handler.setScore(0);
 				Shop.B1 = 2000;
 				Shop.B2 = 1500;
 				Shop.B3 = 1000;
 				HUD.bounds = 0;
-				Handler.spd = 6;
 				
 				//hud2.setScore(0);
 				

@@ -2,13 +2,13 @@ package com.kagaries.player.entity;
 
 import com.kagaries.entity.GameObject;
 import com.kagaries.main.Game;
+import com.kagaries.player.entity.graze.GrazeBox;
 import com.kagaries.ui.hud.HUD;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
+import com.kagaries.ui.hud.HudInterface;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,19 +16,33 @@ public class Player extends GameObject {
 	
 	Handler handler;
 	private long lastCollisionTime = 0;
-	private long collisionCooldown = 500; // Cooldown in milliseconds
+	private final long collisionCooldown = 500; // Cooldown in milliseconds
 	public static boolean isBlinking = false;
-	private int blinkInterval = 25; // Blink interval in milliseconds
+	private final int blinkInterval = 25; // Blink interval in milliseconds
 	private boolean shouldRenderPlayer = true;
 
+	private final Color color;
+	private final HudInterface hud;
+	private final GrazeBox grazeBox;
 
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
+		this.grazeBox = new GrazeBox(x, y, ID.GrazeBox, id, handler);
+		handler.addObject(this.grazeBox);
+		if (id.getColor() != null) {
+			this.color = id.getColor();
+		} else {
+			this.color = Color.GREEN;
+		}
+		hud = id.getHud();
+
+		Game.getLogger().info(hud.toString());
+		Game.getLogger().info(id.name());
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle((int)x, (int)y, 12, 12);
+		return new Rectangle((int)x + 10, (int)y + 10, 12, 12);
 	}
 
 	
@@ -42,95 +56,51 @@ public class Player extends GameObject {
 		
 		collision();
 		
-		if(HUD.HEALTH <= 0) {
+		if(hud.getHealth() <= 0) {
 			handler.removeObject(this);
+			handler.removeObject(this.grazeBox);
+		}
+
+		if (!isBlinking && !shouldRenderPlayer) {
+			shouldRenderPlayer = true;
 		}
 	}
 	
 	
 
 	public void render(Graphics g) {
-	    if (!isBlinking) {
-	        g.setColor(Color.green);
-	        g.fillRect((int)x, (int)y, 32, 32);
+		Graphics2D g2d = (Graphics2D) g;
+
+		float alpha = 0.75f;
+
+	    if (shouldRenderPlayer) {
+			g2d.fillRect((int)x + 10, (int)y + 10, 12, 12);
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+	        g2d.setColor(this.color);
+	        g2d.fillRect((int)x, (int)y, 32, 32);
 	    }
 	}
 
 	
 	private void collision() {
 		long currentTime = System.currentTimeMillis();
-		
-		
 	    
 	    for(int i = 0; i < handler.object.size(); i++) {
-	
-	
-			
+
 			GameObject tempObject = handler.object.get(i);
-		    
-		    
-			
-			if(tempObject.getId() == ID.BasicEnemy) {
+
+			if(tempObject.getId().getDamage() != 0) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 35;
+					hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
 					lastCollisionTime = currentTime;
 				}
-			}
-			
-			else if(tempObject.getId() == ID.SlowEnemy) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 51;
-					lastCollisionTime = currentTime;
-			}	
-		}
-				
-			else if(tempObject.getId() == ID.Friend) {
-					if(getBounds().intersects(tempObject.getBounds())) {
-						HUD.HEALTH -= 50;
-						lastCollisionTime = currentTime;
-				}	
-			}
-			else if(tempObject.getId() == ID.FastEnemy) {
-					if(getBounds().intersects(tempObject.getBounds())) {
-						HUD.HEALTH -= 29;
-						lastCollisionTime = currentTime;
-				} 
-			}
-			else if(tempObject.getId() == ID.SmartEnemy) {
-					if(getBounds().intersects(tempObject.getBounds())) {
-						HUD.HEALTH -= 35;
-						lastCollisionTime = currentTime;
+			} else if (currentTime - lastCollisionTime < collisionCooldown) {
+				if (!isBlinking) {
+					isBlinking = true;
+					startBlinking();
 				}
+				return;
 			}
-				
-			else if(tempObject.getId() == ID.EnemyBoss) {
-					if(getBounds().intersects(tempObject.getBounds())) {
-						HUD.HEALTH -= 100;
-						lastCollisionTime = currentTime;
-				}
-			}
-				
-			else if(tempObject.getId() == ID.HardEnemy) {
-					if(getBounds().intersects(tempObject.getBounds())) {
-						HUD.HEALTH -= 37;
-						lastCollisionTime = currentTime;
-				}
-			}
-			else if(tempObject.getId() == ID.LunaiticEnemy) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					HUD.HEALTH -= 51;
-					lastCollisionTime = currentTime;
-				}
-			}
-			else if (currentTime - lastCollisionTime < collisionCooldown) {
-		        if (!isBlinking) {
-		            isBlinking = true;
-		            startBlinking();
-		        }
-		        return; 
-		    }
-			
-			
 	    }
 	    
 	    // Reset blinking state when cooldown is over
@@ -146,6 +116,9 @@ public class Player extends GameObject {
 			        @Override
 			        public void run() {
 			            shouldRenderPlayer = !shouldRenderPlayer; // Toggle rendering on and off
+						if (!isBlinking) {
+							timer.cancel();
+						}
 			        }
 			    }, 0, blinkInterval);
 			}

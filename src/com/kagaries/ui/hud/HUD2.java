@@ -6,9 +6,8 @@ import java.awt.Graphics;
 import com.kagaries.main.Game;
 import com.kagaries.main.Game.STATE;
 
-public class HUD2 {
-	
-	
+public class HUD2 implements HudInterface {
+
 	public static float HEALTH = 100;
 	public static int bounds2 = 0;
 	
@@ -21,8 +20,9 @@ public class HUD2 {
 	
 	public static float reviveTimer = 0;
 	public static boolean canRevive = false;
-	
-	public static void tick() {
+
+	@Override
+	public void tick() {
 		
 		
 		HEALTH = (int) Game.clamp(HEALTH, 0, 100+(bounds2/2));
@@ -50,7 +50,7 @@ public class HUD2 {
 		}
 	}
 	
-	public static void render(Graphics g) {
+	public void render(Graphics g) {
 		g.setColor(Color.gray);
 		g.fillRect(715, 15, 200 + bounds2, 32);
 		g.setColor(new Color(75, (int)greenValue, 0));
@@ -81,7 +81,24 @@ public class HUD2 {
 	public int getScore() {
 		return score2;
 	}
-	
 
-	
+	@Override
+	public void setHealth(float num) {
+		HEALTH = num;
+	}
+
+	@Override
+	public float getHealth() {
+		return HEALTH;
+	}
+
+	@Override
+	public void setGraze(int num) {
+		graze = num;
+	}
+
+	@Override
+	public int getGraze() {
+		return graze;
+	}
 }

@@ -46,7 +46,7 @@ public class Shop extends MouseAdapter{
 		g.drawString("Cost: " + B3, 410, 140);
 		g.drawRect(400, 100, 100, 80);
 		
-		g.drawString("SCORE:" + hud.getScore(), Game.WIDTH/2-50, 300);
+		g.drawString("SCORE:" + handler.getScore(), Game.WIDTH/2-50, 300);
 		g.drawString("Press Space to go back", Game.WIDTH/2-50, 330);
 	}
 	
@@ -57,8 +57,8 @@ public class Shop extends MouseAdapter{
 		//box 1
 		if(mx >= 100 && mx <= 200) {
 			if(my >= 100 && my <= 180) {
-				if(hud.getScore() >= B1) {
-					HUD.setScore(hud.getScore() - B1);
+				if(handler.getScore() >= B1) {
+					Handler.setScore(handler.getScore() - B1);
 					
 					B1 += 1000;
 					HUD.bounds += 20;
@@ -77,10 +77,9 @@ public class Shop extends MouseAdapter{
 		//box 1
 		if(mx >= 250 && mx <= 350) {
 			if(my >= 100 && my <= 180) {
-				if(hud.getScore() >= B2) {
-					HUD.setScore(hud.getScore() - B2);
-					B2 += 1500;	
-					Handler.spd++;
+				if(handler.getScore() >= B2) {
+					Handler.setScore(handler.getScore() - B2);
+					B2 += 1500;
 				}
 						
 			}
@@ -88,8 +87,8 @@ public class Shop extends MouseAdapter{
 		//box 1
 		if(mx >= 400 && mx <= 500) {
 			if(my >= 100 && my <= 180) {
-				if(hud.getScore() >= B3) {
-					HUD.setScore(hud.getScore() - B3);
+				if(handler.getScore() >= B3) {
+					Handler.setScore(handler.getScore() - B3);
 					B3 += 2000;	
 					HUD.HEALTH += 1000;
 					HUD2.HEALTH += 1000;
@@ -99,7 +98,4 @@ public class Shop extends MouseAdapter{
 		}
 		
 	}
-
-	
-	
 }

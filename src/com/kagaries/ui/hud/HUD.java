@@ -5,15 +5,14 @@ import java.awt.Graphics;
 
 import com.kagaries.main.Game;
 import com.kagaries.main.Game.STATE;
+import com.kagaries.main.Handler;
 
-public class HUD {
+public class HUD implements HudInterface {
 	
 	public static int bounds = 0;
 	public static float HEALTH = 100;
 	
 	private static float greenValue = 255f;
-	static int score = 0;
-	private static float level = 0;
 	
 	public static int graze = 0;
 
@@ -22,7 +21,7 @@ public class HUD {
 	public static float reviveTimer = 0;
 	public static boolean canRevive = false;
 	
-	public static void tick() {
+	public void tick() {
 		
 		
 		HEALTH = Game.clamp(HEALTH, 0, 100+(bounds/2));
@@ -30,7 +29,6 @@ public class HUD {
 		HUD.greenValue = Game.clamp(HUD.greenValue, 0, 255);
 		
 		HUD.greenValue = HEALTH*2;
-		score++;
 		
 		if (HUD.HEALTH <= 0 &!(Game.gameState == STATE.PvPP2) &!(Game.gameState == STATE.PvPP4)) {
 			if (reviveTimer >= 500) {
@@ -60,8 +58,8 @@ public class HUD {
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 200 + bounds, 32);
 		
-		g.drawString("Score: " + score, 15, 64);
-		g.drawString("Level: " + level, 15, 80);
+		g.drawString("Score: " + Handler.score, 15, 64);
+		g.drawString("Level: " + Handler.level, 15, 80);
 		g.drawString("Player1", 15, 13);
 		g.drawString("GRAZE: " + (int) graze, 155, 13);
 		
@@ -77,21 +75,24 @@ public class HUD {
 			g.drawString("canRevive: " + canRevive, 15, 124);
 		}
 	}
-	
-	public static void setScore(int score) {
-		HUD.score = score;
+
+	@Override
+	public void setHealth(float num) {
+		HEALTH = num;
 	}
-	
-	public int getScore() {
-		return score;
+
+	@Override
+	public float getHealth() {
+		return this.HEALTH;
 	}
-	
-	public float getLevel() {
-		return level;
+
+	@Override
+	public void setGraze(int num) {
+		graze = num;
 	}
-	
-	public static void setLevel(float level) {
-		HUD.level = level;
+
+	@Override
+	public int getGraze() {
+		return graze;
 	}
-	
 }
