@@ -35,10 +35,8 @@ public class Player extends GameObject {
 		} else {
 			this.color = Color.GREEN;
 		}
-		hud = id.getHud();
 
-		Game.getLogger().info(hud.toString());
-		Game.getLogger().info(id.name());
+		hud = id.getHud();
 	}
 	
 	public Rectangle getBounds() {

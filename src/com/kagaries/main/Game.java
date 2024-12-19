@@ -11,6 +11,7 @@ import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 import com.kagaries.ui.menu.Menu;
 import com.kagaries.ui.menu.Shop;
+import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,6 +85,7 @@ public class Game extends Canvas implements Runnable{
 	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
+		getLogger().info("Starting...");
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler, hud);
@@ -97,6 +99,7 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(shop);
 		new Window(WIDTH, HEIGHT, "CubeMan", this);
 
+		getLogger().info("Window Init");
 		
 		if (Game.gameState == STATE.Menu){
 			for(int i = 0; i < 1; i++) {
@@ -114,7 +117,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	public static Logger getLogger() {
-		return LoggerFactory.getLogger(STACK_WALKER.getCallerClass());
+		return LogUtils.getLogger();
 	}
 	
 	public synchronized void start() {
