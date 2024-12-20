@@ -276,8 +276,7 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
 				handler.addObject(new LunaiticEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.LunaiticEnemy, handler));
-
-
+				handler.addObject(new LunaiticEnemy(Game.WIDTH/3+164, Game.HEIGHT/3+128, ID.LunaiticEnemy, handler));
 				game.diff = 2;
 			} else if(Game.gameState == STATE.SelectP2) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);

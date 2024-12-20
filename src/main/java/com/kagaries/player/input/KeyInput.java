@@ -141,6 +141,16 @@ public class KeyInput extends KeyAdapter{
 						tempObject.setVelX(-HUD.speed);
 					}
 				}
+				/*
+				if (key == KeyEvent.VK_V) {
+					((Player) tempObject).hud.setHealth(5);
+				}
+
+				if (key == KeyEvent.VK_N) {
+					((Player) tempObject).hud.setHealth(95);
+				}
+
+				 */
 
 				if(key == KeyEvent.VK_ESCAPE && Objects.equals(Game.gameState.getType().getTypeString(), "game")) {
 					Game.gameState = STATE.Menu;

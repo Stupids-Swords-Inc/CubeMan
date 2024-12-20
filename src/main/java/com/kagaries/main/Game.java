@@ -205,8 +205,6 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -222,7 +220,8 @@ public class Game extends Canvas implements Runnable{
 		}
 		if(paused) {
 			g.setColor(Color.WHITE);
-			g.drawString("PAUSED", 100, 100);
+			g.setFont(new Font("arial", Font.BOLD, 50));
+			g.drawString("PAUSED", WIDTH / 2 - 110, HEIGHT / 2);
 		} else if(gameState.getType() == stateType.GAMEP2 || gameState.getType() == stateType.PVPP2) {
 			hud.render(g);
 			hud2.render(g);

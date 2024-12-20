@@ -22,12 +22,12 @@ public class RandomEnemy extends Enemy {
 		x += velX;
 		y += velY;
 		
-		int randomY1 = -6 + r.nextInt(6) / -1;
-		int randomY2 = 6 + r.nextInt(6) / 1;
-		int randomX1 = -10 + r.nextInt(8) / -1;
-		int randomX2 = 10 + r.nextInt(8) / 1;
+		int randomY1 = -6 + (r.nextInt(6) / -1);
+		int randomY2 = 6 + r.nextInt(6);
+		int randomX1 = -10 + (r.nextInt(8) / -1);
+		int randomX2 = 10 + r.nextInt(8);
 		
-		int randomBounce = r.nextInt(10);
+		int randomBounce = r.nextInt(11);
 		
 		if(randomBounce == 5 || randomBounce == 6) velY = randomY1;
 		if(randomBounce == 3 || randomBounce == 4) velY = randomY2;

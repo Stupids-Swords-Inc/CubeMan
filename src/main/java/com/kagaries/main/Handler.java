@@ -46,9 +46,14 @@ public class Handler {
 	
 	public void render(Graphics g) {
 		for(int i = 0; i < object.size(); i++) {
+			if (object.isEmpty()) {
+				return;
+			}
 			GameObject tempObject = object.get(i);
-			
-			tempObject.render(g);
+
+			if (tempObject != null) {
+				tempObject.render(g);
+			}
 		}
 	}
 	

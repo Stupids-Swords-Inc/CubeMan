@@ -68,7 +68,7 @@ public class SimpleAudioPlayer {
                 audioInputStream = AudioSystem.getAudioInputStream(bufferedInputStream);
                 AudioFormat originalFormat = audioInputStream.getFormat();
 
-                float newSampleRate = originalFormat.getSampleRate() / (damage / 3);
+                float newSampleRate = originalFormat.getSampleRate() / (damage / 9);
                 AudioFormat deepenedFormat = new AudioFormat(
                         originalFormat.getEncoding(),
                         newSampleRate,

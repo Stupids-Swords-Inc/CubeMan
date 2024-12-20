@@ -26,9 +26,11 @@ public class HUD implements HudInterface {
 		
 		HEALTH = Game.clamp(HEALTH, 0, 100+((float) bounds /2));
 		graze = (int) Game.clamp(graze, 0, 100);
-		HUD.greenValue = Game.clamp(HUD.greenValue, 0, 255);
-		
+
 		HUD.greenValue = HEALTH*2;
+
+		HUD.greenValue = Game.clamp(HUD.greenValue, 0, 255);
+
 		
 		if (HUD.HEALTH <= 0 &!(Game.gameState == STATE.PvPP2) &!(Game.gameState == STATE.PvPP4)) {
 			if (reviveTimer >= 500) {

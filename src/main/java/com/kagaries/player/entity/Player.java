@@ -13,6 +13,7 @@ import com.kagaries.ui.hud.HUD;
 import com.kagaries.ui.hud.HudInterface;
 
 import java.awt.*;
+import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
@@ -30,8 +31,12 @@ public class Player extends GameObject {
 	private int dashTime = 0;
 
 	final Color color;
-	private final HudInterface hud;
+	public final HudInterface hud;
 	private final GrazeBox grazeBox;
+	private Color currentPanicColor;
+	private boolean runningPanic = false;
+
+	Color[] color1 = {Color.RED};
 
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
@@ -88,6 +93,10 @@ public class Player extends GameObject {
 		if (!isBlinking && !shouldRenderPlayer) {
 			shouldRenderPlayer = true;
 		}
+
+		if (runningPanic && this.hud.getHealth() > 15) {
+			runningPanic = false;
+		}
 	}
 	
 	
@@ -96,6 +105,7 @@ public class Player extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		float alpha = 0.5f;
+		float healthAlpha = 1.0f;
 		float innerAlpha = this.canDash ? 1f : 0.25f;
 
 	    if (shouldRenderPlayer) {
@@ -104,11 +114,25 @@ public class Player extends GameObject {
 			g2d.fillRect((int)x + 10, (int)y + 10, 12, 12);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 	        g2d.fillRect((int)x, (int)y, 32, 32);
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, healthAlpha));
+			if (hud.getHealth() > 50) {
+				g2d.setColor(Color.GREEN);
+			} else if (hud.getHealth() < 50 && hud.getHealth() > 25) {
+				g2d.setColor(Color.ORANGE);
+			} else if (hud.getHealth() < 25 && hud.getHealth() > 10) {
+				g2d.setColor(Color.RED);
+			} else if (hud.getHealth() < 15) {
+				if (!runningPanic) {
+					color1 = new Color[]{startPanicHealth()};
+				}
+				g2d.setColor(color1[0] == null ? Color.BLACK : color1[0]);
+			}
+			g2d.fillRect((int)x, (int)y, 5, 5);
 	    }
 	}
 
 	public void dash() {
-		if (this.canDash) {
+		if (this.canDash && ((this.velX > 0 || this.velY > 0) || (this.velX < 0 || this.velY < 0))) {
 			SimpleAudioPlayer.playSound(AudioRegistry.DASH);
 			hud.setSpeed(10);
 			dashCooldown = 100;
@@ -164,6 +188,31 @@ public class Player extends GameObject {
 						}
 			        }
 			    }, 0, blinkInterval);
+			}
+
+			private Color startPanicHealth() {
+				this.runningPanic = true;
+				Timer timer = new Timer();
+
+
+
+				int blinkInterval = 50;
+				timer.scheduleAtFixedRate(new TimerTask() {
+					@Override
+					public void run() {
+						if (color1[0] == Color.BLACK) {
+							color1[0] = Color.RED;
+						} else {
+							color1[0] = Color.BLACK;
+						}
+
+						if (!runningPanic) {
+							timer.cancel();
+						}
+					}
+				}, 0, blinkInterval);
+
+				return color1[0];
 			}
 
 			private void stopBlinking() {
