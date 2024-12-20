@@ -50,6 +50,49 @@ public class SimpleAudioPlayer {
        thread.start();
     }
 
+    public static void playSound(AudioRegistry audioRegistry, float deepValue) {
+        Thread thread = new Thread(() -> {
+            try {
+                AudioInputStream audioInputStream;
+
+                InputStream inputStream = Game.getResourceLoader().getResourceAsStream(audioRegistry.getPath());
+
+                audioInputStream = AudioSystem.getAudioInputStream(inputStream);
+                AudioFormat originalFormat = audioInputStream.getFormat();
+
+                float newSampleRate = originalFormat.getSampleRate() / (deepValue / 3); // Half the original rate
+                AudioFormat deepenedFormat = new AudioFormat(
+                        originalFormat.getEncoding(),
+                        newSampleRate,
+                        originalFormat.getSampleSizeInBits(),
+                        originalFormat.getChannels(),
+                        originalFormat.getFrameSize(),
+                        newSampleRate,
+                        originalFormat.isBigEndian()
+                );
+
+                AudioInputStream deepenedAudioStream = AudioSystem.getAudioInputStream(deepenedFormat, audioInputStream);
+
+                clip = AudioSystem.getClip();
+
+                clip.open(deepenedAudioStream);
+
+                FloatControl gainControl =
+                        (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(audioRegistry.getGain());
+
+                clip.start();
+
+                stopNearEnd(clip, audioRegistry);
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        thread.setName("Sound-Thread" + UUID.randomUUID());
+        thread.start();
+    }
+
     private static void stopNearEnd(Clip clip, AudioRegistry audioRegistry) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {

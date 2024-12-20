@@ -26,9 +26,10 @@ public class Handler {
 			GameObject tempObject = object.get(i);
 
 			if (tempObject instanceof Enemy) {
-				((Enemy) tempObject).enableTick();
 				if (((Enemy) tempObject).enabled) {
 					tempObject.tick();
+				} else {
+					((Enemy) tempObject).enableTick();
 				}
 			} else {
 				tempObject.tick();

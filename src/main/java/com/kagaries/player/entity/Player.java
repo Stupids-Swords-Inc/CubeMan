@@ -92,7 +92,7 @@ public class Player extends GameObject {
             if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					if (((Enemy) tempObject).enabled) {
-						SimpleAudioPlayer.playSound(AudioRegistry.PLAYER_HURT);
+						SimpleAudioPlayer.playSound(AudioRegistry.PLAYER_HURT, tempObject.getId().getDamage());
 						hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
 						lastCollisionTime = currentTime;
 					}

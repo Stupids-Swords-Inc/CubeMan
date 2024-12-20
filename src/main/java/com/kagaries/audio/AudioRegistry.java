@@ -2,7 +2,7 @@ package com.kagaries.audio;
 
 public enum AudioRegistry {
     //Player
-    PLAYER_HURT("player/hitHurt.wav", 0.75f, -15.0f),
+    PLAYER_HURT("player/hitHurt.wav", 0.75f, -5.0f),
     //Menu
     MENU_SELECT("menu/blipSelect.wav", 0.7f, -15.0f);
 
