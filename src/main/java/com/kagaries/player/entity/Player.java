@@ -4,24 +4,32 @@ import com.kagaries.audio.AudioRegistry;
 import com.kagaries.audio.SimpleAudioPlayer;
 import com.kagaries.entity.GameObject;
 import com.kagaries.entity.enemy.Enemy;
+import com.kagaries.entity.trail.Trail;
 import com.kagaries.main.Game;
 import com.kagaries.player.entity.graze.GrazeBox;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
+import com.kagaries.ui.hud.HUD;
 import com.kagaries.ui.hud.HudInterface;
 
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 public class Player extends GameObject {
 	
 	Handler handler;
 	private long lastCollisionTime = 0;
     public static boolean isBlinking = false;
-    private boolean shouldRenderPlayer = true;
+    boolean shouldRenderPlayer = true;
 
-	private final Color color;
+	public boolean dashing = false;
+	static boolean canDash = true;
+	private static int dashCooldown = 0;
+	private static int dashTime = 0;
+
+	final Color color;
 	private final HudInterface hud;
 	private final GrazeBox grazeBox;
 
@@ -53,6 +61,24 @@ public class Player extends GameObject {
 
 		
 		collision();
+
+		if (dashCooldown > 0) {
+			--dashCooldown;
+		} else {
+			canDash = true;
+		}
+
+		if (dashTime > 0) {
+			--dashTime;
+		} else if(dashing) {
+			hud.setSpeed(6);
+			Game.keyInput.resetSpeed(this, this.id);
+			dashing = false;
+		}
+
+		if (dashing) {
+			handler.addObject(new Trail(x, y, ID.Trail, this.color, 32, 32, 0.15f, handler));
+		}
 		
 		if(hud.getHealth() <= 0) {
 			handler.removeObject(this);
@@ -69,7 +95,7 @@ public class Player extends GameObject {
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		float alpha = 0.75f;
+		float alpha = 0.5f;
 
 	    if (shouldRenderPlayer) {
 			g2d.fillRect((int)x + 10, (int)y + 10, 12, 12);
@@ -79,6 +105,15 @@ public class Player extends GameObject {
 	    }
 	}
 
+	public void dash() {
+		if (canDash) {
+			hud.setSpeed(10);
+			dashCooldown = 100;
+			canDash = false;
+			dashTime = 15;
+			dashing = true;
+		}
+	}
 	
 	private void collision() {
 		long currentTime = System.currentTimeMillis();
@@ -89,7 +124,7 @@ public class Player extends GameObject {
 
             // Cooldown in milliseconds
             long collisionCooldown = 500;
-            if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy) {
+            if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy && !dashing) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					if (((Enemy) tempObject).enabled) {
 						SimpleAudioPlayer.playDamageSound(AudioRegistry.PLAYER_HURT, tempObject.getId().getDamage());

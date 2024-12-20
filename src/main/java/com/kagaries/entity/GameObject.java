@@ -10,7 +10,7 @@ public abstract class GameObject {
 	protected float velX, velY;
 
 	float timeToSpawn;
-	boolean enabled;
+	public boolean enabled;
 	
 	public GameObject(float x, float y, ID id) {
 		this.x = x;

@@ -47,7 +47,7 @@ public class TestCircleEnemy extends Enemy {
             GameObject tempObject = handler.object.get(i);
 
             if (tempObject instanceof Player) {
-                if (getAngerBounds().intersects(tempObject.getBounds())) {
+                if (getAngerBounds().intersects(tempObject.getBounds()) && !((Player) tempObject).dashing) {
                     if (!this.angered) {
                         this.angered = true;
                         this.velX = 8;

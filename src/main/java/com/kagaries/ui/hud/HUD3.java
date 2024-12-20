@@ -102,4 +102,14 @@ public class HUD3 implements HudInterface {
 	public int getGraze() {
 		return graze;
 	}
+
+	@Override
+	public void setSpeed(int num) {
+		speed = num;
+	}
+
+	@Override
+	public int getSpeed() {
+		return speed;
+	}
 }

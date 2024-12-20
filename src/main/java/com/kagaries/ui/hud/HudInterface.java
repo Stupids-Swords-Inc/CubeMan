@@ -11,6 +11,10 @@ public interface HudInterface {
 
     float getHealth();
 
+    void setSpeed(int num);
+
+    int getSpeed();
+
     void setGraze(int num);
 
     int getGraze();

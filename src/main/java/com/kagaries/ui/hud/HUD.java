@@ -87,6 +87,16 @@ public class HUD implements HudInterface {
 	}
 
 	@Override
+	public void setSpeed(int num) {
+		speed = num;
+	}
+
+	@Override
+	public int getSpeed() {
+		return speed;
+	}
+
+	@Override
 	public void setGraze(int num) {
 		graze = num;
 	}

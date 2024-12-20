@@ -19,6 +19,8 @@ public class GrazeBox extends GameObject {
     private final ID playerID;
 	private final HudInterface hud;
 
+	private boolean dashing;
+
 	public GrazeBox(int x, int y, ID id, ID playerID, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
@@ -36,14 +38,19 @@ public class GrazeBox extends GameObject {
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == this.playerID) {
 				x = tempObject.getX();
-				y = tempObject.getY(); 
+				y = tempObject.getY();
+				if (tempObject instanceof Player) {
+					dashing = ((Player) tempObject).dashing;
+				}
 			}
 			
 			
 		}
 
 		
-		collision();
+		if (!dashing) {
+			collision();
+		}
 		
 		if(HUD.HEALTH <= 0.1) {
 			handler.removeObject(this);
@@ -66,7 +73,7 @@ public class GrazeBox extends GameObject {
 
             // Cooldown in milliseconds (1 second in this example)
             long collisionCooldown = 50;
-            if(tempObject.getId().getGraze() != 0) {
+            if(tempObject.getId().getGraze() != 0 && tempObject.enabled) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					hud.setHealth(hud.getHealth() + tempObject.getId().getGraze());
 					hud.setGraze(hud.getGraze() + tempObject.getId().getGraze());

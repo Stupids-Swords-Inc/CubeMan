@@ -10,6 +10,7 @@ import com.kagaries.main.Game;
 import com.kagaries.main.Game.STATE;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
+import com.kagaries.player.entity.Player;
 import com.kagaries.ui.hud.HUD;
 import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
@@ -51,7 +52,62 @@ public class KeyInput extends KeyAdapter{
 		keyDown[14]=false;
 		keyDown[15]=false;
 	}
-	
+
+	public void resetSpeed(GameObject tempObject, ID id) {
+		if (id == ID.Player) {
+			if (keyDown[0]) {
+				tempObject.setVelY(-HUD.speed);
+			}
+			if (keyDown[1]) {
+				tempObject.setVelY(HUD.speed);
+			}
+			if (keyDown[2]) {
+				tempObject.setVelX(HUD.speed);
+			}
+			if (keyDown[3]) {
+				tempObject.setVelX(-HUD.speed);
+			}
+		} else if (id == ID.Player2) {
+			if (keyDown[4]) {
+				tempObject.setVelY(-HUD2.speed);
+			}
+			if (keyDown[5]) {
+				tempObject.setVelY(HUD2.speed);
+			}
+			if (keyDown[6]) {
+				tempObject.setVelX(-HUD2.speed);
+			}
+			if (keyDown[7]) {
+				tempObject.setVelX(HUD2.speed);
+			}
+		} else if (id == ID.Player3) {
+			if (keyDown[8]) {
+				tempObject.setVelY(-HUD3.speed);
+			}
+			if (keyDown[9]) {
+				tempObject.setVelY(HUD3.speed);
+			}
+			if (keyDown[10]) {
+				tempObject.setVelX(-HUD3.speed);
+			}
+			if (keyDown[11]) {
+				tempObject.setVelX(HUD3.speed);
+			}
+		} else if (id == ID.Player4) {
+			if (keyDown[12]) {
+				tempObject.setVelY(-HUD4.speed);
+			}
+			if (keyDown[13]) {
+				tempObject.setVelY(HUD4.speed);
+			}
+			if (keyDown[14]) {
+				tempObject.setVelX(-HUD4.speed);
+			}
+			if (keyDown[15]) {
+				tempObject.setVelX(HUD4.speed);
+			}
+		}
+	}
 	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -69,6 +125,22 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_S) { tempObject.setVelY(HUD.speed); keyDown[1]=true; }
 				if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed); keyDown[2]=true; }
 				if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed); keyDown[3]=true; }
+
+				if(key == KeyEvent.VK_E) {
+					((Player) tempObject).dash();
+					if (keyDown[0]) {
+						tempObject.setVelY(-HUD.speed);
+					}
+					if (keyDown[1]) {
+						tempObject.setVelY(HUD.speed);
+					}
+					if (keyDown[2]) {
+						tempObject.setVelX(HUD.speed);
+					}
+					if (keyDown[3]) {
+						tempObject.setVelX(-HUD.speed);
+					}
+				}
 
 				if(key == KeyEvent.VK_ESCAPE && Objects.equals(Game.gameState.getType().getTypeString(), "game")) {
 					Game.gameState = STATE.Menu;
@@ -93,6 +165,22 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_DOWN) { tempObject.setVelY(HUD2.speed); keyDown[5]=true; }
 					if(key == KeyEvent.VK_LEFT) { tempObject.setVelX(-HUD2.speed); keyDown[6]=true; }
 					if(key == KeyEvent.VK_RIGHT) { tempObject.setVelX(HUD2.speed); keyDown[7]=true; }
+
+				if(key == 17 && e.getKeyLocation() == KeyEvent.KEY_LOCATION_RIGHT) {
+					((Player) tempObject).dash();
+					if (keyDown[4]) {
+						tempObject.setVelY(-HUD2.speed);
+					}
+					if (keyDown[5]) {
+						tempObject.setVelY(HUD2.speed);
+					}
+					if (keyDown[6]) {
+						tempObject.setVelX(-HUD2.speed);
+					}
+					if (keyDown[7]) {
+						tempObject.setVelX(HUD2.speed);
+					}
+				}
 			}
 			
 			if(tempObject.getId() == ID.Player3) {
@@ -100,13 +188,45 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_K) { tempObject.setVelY(HUD3.speed); keyDown[9]=true; }
 					if(key == KeyEvent.VK_J) { tempObject.setVelX(-HUD3.speed); keyDown[10]=true; }
 					if(key == KeyEvent.VK_L) { tempObject.setVelX(HUD3.speed); keyDown[11]=true; }
+
+				if(key ==  KeyEvent.VK_SEMICOLON) {
+					((Player) tempObject).dash();
+					if (keyDown[8]) {
+						tempObject.setVelY(-HUD3.speed);
+					}
+					if (keyDown[9]) {
+						tempObject.setVelY(HUD3.speed);
+					}
+					if (keyDown[10]) {
+						tempObject.setVelX(-HUD3.speed);
+					}
+					if (keyDown[11]) {
+						tempObject.setVelX(HUD3.speed);
+					}
 				}
+			}
 			
 			if(tempObject.getId() == ID.Player4) {
 					if(key == KeyEvent.VK_T) { tempObject.setVelY(-HUD4.speed); keyDown[12]=true; }
 					if(key == KeyEvent.VK_G) { tempObject.setVelY(HUD4.speed); keyDown[13]=true; }
 					if(key == KeyEvent.VK_F) { tempObject.setVelX(-HUD4.speed); keyDown[14]=true; }
 					if(key == KeyEvent.VK_H) { tempObject.setVelX(HUD4.speed); keyDown[15]=true; }
+
+				if(key ==  KeyEvent.VK_Y) {
+					((Player) tempObject).dash();
+					if (keyDown[12]) {
+						tempObject.setVelY(-HUD4.speed);
+					}
+					if (keyDown[13]) {
+						tempObject.setVelY(HUD4.speed);
+					}
+					if (keyDown[14]) {
+						tempObject.setVelX(-HUD4.speed);
+					}
+					if (keyDown[15]) {
+						tempObject.setVelX(HUD4.speed);
+					}
+				}
 				}
 			}
 		}

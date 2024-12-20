@@ -3,7 +3,9 @@ package com.kagaries.main;
 import com.kagaries.entity.ID;
 import com.kagaries.entity.MenuParticle;
 import com.kagaries.entity.Spawn;
+import com.kagaries.player.entity.CirclePlayer;
 import com.kagaries.player.entity.Player;
+import com.kagaries.player.entity.RoundedPlayer;
 import com.kagaries.player.input.KeyInput;
 import com.kagaries.ui.Window;
 import com.kagaries.ui.hud.HUD;
@@ -43,6 +45,8 @@ public class Game extends Canvas implements Runnable{
 	public static boolean muted = false;
 	
 	private final Menu menu;
+
+	public static KeyInput keyInput;
 
 	public static ResourceLoader resourceLoader = new ResourceLoader();
 
@@ -116,7 +120,8 @@ public class Game extends Canvas implements Runnable{
 		hud2 = new HUD2();
 		hud3 = new HUD3();
 		hud4 = new HUD4();
-		this.addKeyListener(new KeyInput(handler, this));
+		keyInput = new KeyInput(handler, this);
+		this.addKeyListener(keyInput);
 		this.addMouseListener(menu);
 		window = new Window(WIDTH, HEIGHT, "CubeMan", this);
 
@@ -124,7 +129,6 @@ public class Game extends Canvas implements Runnable{
 		
 		if (Game.gameState == STATE.Menu){
 			for(int i = 0; i < 1; i++) {
-				handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player, handler));
 				handler.addObject(new MenuParticle(WIDTH/3-164, HEIGHT/2-128, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH/2-100, HEIGHT/2-165, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH -232, HEIGHT/4-128, ID.MenuParticle, handler));
