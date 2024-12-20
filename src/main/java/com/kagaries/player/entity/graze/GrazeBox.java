@@ -1,6 +1,7 @@
 package com.kagaries.player.entity.graze;
 
 import com.kagaries.entity.GameObject;
+import com.kagaries.main.Game;
 import com.kagaries.ui.hud.HUD;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
@@ -75,7 +76,7 @@ public class GrazeBox extends GameObject {
 
             // Cooldown in milliseconds (1 second in this example)
             long collisionCooldown = 50;
-            if(tempObject.getId().getGraze() != 0 && tempObject.enabled) {
+            if(tempObject.getId().getGraze() != 0) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					hud.setHealth(hud.getHealth() + tempObject.getId().getGraze());
 					hud.setGraze(hud.getGraze() + tempObject.getId().getGraze());
