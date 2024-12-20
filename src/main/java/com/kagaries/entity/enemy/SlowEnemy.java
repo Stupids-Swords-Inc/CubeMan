@@ -8,13 +8,9 @@ import com.kagaries.entity.trail.Trail;
 import java.awt.*;
 
 public class SlowEnemy extends Enemy {
-	
-	private Handler handler;
 
 	public SlowEnemy(int x, int y, ID id, Handler handler) {
-		super(x, y, id, handler);
-		
-		this.handler = handler;
+		super(x, y, id, handler, 150f);
 		
 		velX = 4;
 		velY = 4;

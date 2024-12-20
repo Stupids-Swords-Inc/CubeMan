@@ -113,7 +113,7 @@ public class Game extends Canvas implements Runnable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        handler = new Handler();
+        handler = new Handler(this);
 		hud = new HUD();
 		menu = new Menu(this, handler);
 		spawner = new Spawn(handler, this);

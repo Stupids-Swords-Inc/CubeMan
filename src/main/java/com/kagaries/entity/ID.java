@@ -33,7 +33,8 @@ public enum ID {
 	LunaiticBoss2(Color.MAGENTA, 100, 8),
 	//Misc
 	MenuParticle(),
-	Trail();
+	Trail(),
+	DamageTrail(8);
 
 	private final Color color;
 	private final HudInterface hud;
@@ -55,6 +56,14 @@ public enum ID {
 		this.hud = null;
 		this.damage = 0;
 		this.graze = 0;
+	}
+
+	ID(float damage) {
+		this.damage = damage;
+		this.graze = 0;
+		this.trailColor = null;
+		this.hud = null;
+		this.color = Color.WHITE;
 	}
 
 	ID(Color color, HudInterface hud) {

@@ -4,6 +4,7 @@ import com.kagaries.audio.AudioRegistry;
 import com.kagaries.audio.SimpleAudioPlayer;
 import com.kagaries.entity.GameObject;
 import com.kagaries.entity.enemy.Enemy;
+import com.kagaries.entity.trail.DamageTrail;
 import com.kagaries.entity.trail.Trail;
 import com.kagaries.main.Game;
 import com.kagaries.player.entity.graze.GrazeBox;
@@ -81,10 +82,12 @@ public class Player extends GameObject {
 			dashing = false;
 		}
 
-		if (dashing) {
-			handler.addObject(new Trail(x, y, ID.Trail, this.color, 32, 32, 0.15f, handler));
+		if (dashing && !(Game.gameState == Game.STATE.PvPP2) && !(Game.gameState == Game.STATE.PvPP4)) {
+			handler.addObject(new Trail(x, y, ID.Trail, this.color, 32, 32, 0.125f, handler));
+		} else if (dashing) {
+			handler.addObject(new DamageTrail(x, y, ID.DamageTrail, this.color, 32, 32, 0.01f, handler, this));
 		}
-		
+
 		if(hud.getHealth() <= 0) {
 			handler.removeObject(this);
 			handler.removeObject(this.grazeBox);
@@ -153,13 +156,23 @@ public class Player extends GameObject {
             long collisionCooldown = 500;
             if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy && !dashing) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					if (((Enemy) tempObject).enabled) {
+                    if (((Enemy) tempObject).enabled) {
+                        SimpleAudioPlayer.playDamageSound(AudioRegistry.PLAYER_HURT, tempObject.getId().getDamage());
+                        hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
+                        lastCollisionTime = currentTime;
+                    }
+                }
+			} else if (tempObject.getId().getDamage() != 0 && tempObject instanceof DamageTrail && !dashing) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+					if (!(((DamageTrail) tempObject).object.equals(this))) {
 						SimpleAudioPlayer.playDamageSound(AudioRegistry.PLAYER_HURT, tempObject.getId().getDamage());
 						hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
-						lastCollisionTime = currentTime;
+						lastCollisionTime = currentTime + 500;
+						handler.removeObject(tempObject);
+						return;
 					}
 				}
-			} else if (currentTime - lastCollisionTime < collisionCooldown) {
+            }else if (currentTime - lastCollisionTime < collisionCooldown) {
 				if (!isBlinking) {
 					isBlinking = true;
 					startBlinking();

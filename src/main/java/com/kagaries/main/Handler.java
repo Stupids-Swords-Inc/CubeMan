@@ -20,7 +20,13 @@ public class Handler {
 
 	public static int score = 0;
 	public static float level = 0;
-	
+
+	public final Game game;
+
+	public Handler(Game game) {
+		this.game = game;
+	}
+
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
 			if (object.isEmpty()) {
