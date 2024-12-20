@@ -2,6 +2,7 @@ package com.kagaries.player.input;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.security.Key;
 
 import com.kagaries.entity.GameObject;
 import com.kagaries.main.Game;
@@ -53,7 +54,10 @@ public class KeyInput extends KeyAdapter{
 	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		
+
+		if (key == KeyEvent.VK_MINUS) {
+			Game.muted = !Game.muted;
+		}
 		
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);

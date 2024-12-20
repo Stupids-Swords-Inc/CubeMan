@@ -5,7 +5,6 @@ import com.kagaries.main.Game;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -22,7 +21,10 @@ public class SimpleAudioPlayer {
     }
 
     public static void playSound(AudioRegistry audioRegistry) {
-       Thread thread = new Thread(() -> {
+        if (Game.muted) {
+            return;
+        }
+        Thread thread = new Thread(() -> {
            try {
                AudioInputStream audioInputStream;
 
@@ -50,7 +52,10 @@ public class SimpleAudioPlayer {
        thread.start();
     }
 
-    public static void playSound(AudioRegistry audioRegistry, float deepValue) {
+    public static void playDamageSound(AudioRegistry audioRegistry, float damage) {
+        if (Game.muted) {
+            return;
+        }
         Thread thread = new Thread(() -> {
             try {
                 AudioInputStream audioInputStream;
@@ -60,7 +65,7 @@ public class SimpleAudioPlayer {
                 audioInputStream = AudioSystem.getAudioInputStream(inputStream);
                 AudioFormat originalFormat = audioInputStream.getFormat();
 
-                float newSampleRate = originalFormat.getSampleRate() / (deepValue / 3); // Half the original rate
+                float newSampleRate = originalFormat.getSampleRate() / (damage / 3);
                 AudioFormat deepenedFormat = new AudioFormat(
                         originalFormat.getEncoding(),
                         newSampleRate,

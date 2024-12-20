@@ -38,6 +38,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static boolean showTrail = true;
 	public static boolean showExtraStats = false;
+	public static boolean muted = false;
 	
 	private final Menu menu;
 
