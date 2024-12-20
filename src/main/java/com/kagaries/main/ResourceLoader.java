@@ -19,11 +19,11 @@ public class ResourceLoader {
         return inputStream;
     }
 
-    private List<String> getResourceFiles(String path) throws IOException {
+    private List<String> getResourceFiles() throws IOException {
         List<String> filenames = new ArrayList<>();
 
         try (
-                InputStream in = getResourceAsStream(path);
+                InputStream in = getResourceAsStream("");
                 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
             String resource;
 
@@ -36,7 +36,7 @@ public class ResourceLoader {
     }
 
     public void preloadResources() throws IOException {
-        List<String> names = getResourceFiles("");
+        List<String> names = getResourceFiles();
 
         for (String string : names) {
             Game.getLogger().info("Loading: {}", string);

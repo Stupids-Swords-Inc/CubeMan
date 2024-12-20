@@ -4,7 +4,7 @@ import com.kagaries.entity.GameObject;
 import com.kagaries.main.Game;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
-import com.kagaries.entity.Trail;
+import com.kagaries.entity.trail.Trail;
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -1,5 +1,6 @@
 package com.kagaries.entity;
 
+import com.kagaries.entity.trail.Trail;
 import com.kagaries.main.Game;
 import com.kagaries.main.Handler;
 

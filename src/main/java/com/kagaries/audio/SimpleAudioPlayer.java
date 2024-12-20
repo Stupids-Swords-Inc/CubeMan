@@ -10,10 +10,19 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 public class SimpleAudioPlayer {
+    static Clip clip;
+
+    static {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void playSound(AudioRegistry audioRegistry) {
        Thread thread = new Thread(() -> {
            try {
-               Clip clip;
                AudioInputStream audioInputStream;
 
                Game.getLogger().info("Getting Resource");
@@ -53,7 +62,6 @@ public class SimpleAudioPlayer {
                 if (clip.getFramePosition() > clip.getFrameLength() * audioRegistry.getCutOff()) {
                     timer.cancel();
                     clip.stop();
-                    clip.flush();
                 }
             }
         }, 0, 1);

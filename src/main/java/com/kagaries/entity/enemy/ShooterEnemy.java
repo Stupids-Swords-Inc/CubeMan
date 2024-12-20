@@ -1,7 +1,7 @@
 package com.kagaries.entity.enemy;
 
 import com.kagaries.entity.ID;
-import com.kagaries.entity.Trail;
+import com.kagaries.entity.trail.Trail;
 import com.kagaries.entity.bullet.ShooterEnemyBullet;
 import com.kagaries.main.*;
 

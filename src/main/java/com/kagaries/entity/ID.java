@@ -15,6 +15,7 @@ public enum ID {
 	GrazeBox(),
 	//Enemy
 	BasicEnemy(Color.RED, 35, 1),
+	BasicCircleEnemy(Color.LIGHT_GRAY, 25, 2),
 	RandomEnemy(Color.RED, 25, 1),
 	SlowEnemy(Color.PINK, 51, 0),
 	HardEnemy(Color.ORANGE,37, 1),

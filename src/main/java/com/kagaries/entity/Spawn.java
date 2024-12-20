@@ -33,6 +33,7 @@ public class Spawn {
 			if(game.diff == 0) 
 			{
 				if(handler.getLevel() == 1.0) {
+					handler.addObject(new TestCircleEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicCircleEnemy, handler));
 					handler.addObject(new SlowEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SlowEnemy, handler));
 					handler.addObject(new SlowEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SlowEnemy, handler));
 					handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));

@@ -18,6 +18,9 @@ public abstract class GameObject {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
+	public Rectangle getAngerBounds() {
+		return new Rectangle((int)this.x,(int)this.y, 0, 0);
+	}
 	
 	public void setX(int x) {
 		this.x = x;
