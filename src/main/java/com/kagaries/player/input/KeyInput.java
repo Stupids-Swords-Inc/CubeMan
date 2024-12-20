@@ -3,6 +3,7 @@ package com.kagaries.player.input;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.security.Key;
+import java.util.Objects;
 
 import com.kagaries.entity.GameObject;
 import com.kagaries.main.Game;
@@ -69,7 +70,7 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed); keyDown[2]=true; }
 				if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed); keyDown[3]=true; }
 
-				if(key == KeyEvent.VK_ESCAPE) {
+				if(key == KeyEvent.VK_ESCAPE && Objects.equals(Game.gameState.getType().getTypeString(), "game")) {
 					Game.gameState = STATE.Menu;
 					
 					HUD.HEALTH = 0;

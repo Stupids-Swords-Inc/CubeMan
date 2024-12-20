@@ -1,8 +1,6 @@
 package com.kagaries.ui.menu;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,7 +20,9 @@ import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 
-public class Menu extends MouseAdapter{
+import javax.swing.*;
+
+public class Menu extends MouseAdapter {
 	
 	private final Game game;
 	private final Handler handler;
@@ -31,7 +31,7 @@ public class Menu extends MouseAdapter{
 		this.game = game;
 		this.handler = handler;
 	}
-	
+
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
@@ -47,9 +47,9 @@ public class Menu extends MouseAdapter{
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP2Select;
 			}
-			
+
 		}
-		
+
 		if(mouseOver(mx, my, 210, 450)) {
 			if (Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -83,7 +83,7 @@ public class Menu extends MouseAdapter{
 				Game.gameState = STATE.Menu;
 			}
 		}
-		
+
 		if(mouseOver(mx, my, 410, 250)) {
 			if(Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -96,8 +96,8 @@ public class Menu extends MouseAdapter{
 				Game.gameState = STATE.PvPP4Select;
 			}
 		}
-			
-		
+
+
 		if(mouseOver(mx, my, 210, 350)) {
 			if(Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -119,8 +119,8 @@ public class Menu extends MouseAdapter{
 				HUD.graze = 0;
 				handler.clearEnemys();
 				Game.gameState = STATE.Menu;
-				
-				
+
+
 				Spawn.scoreKeep = 0;
 				Handler.setLevel(0.0f);
 				Handler.setScore(0);
@@ -128,24 +128,24 @@ public class Menu extends MouseAdapter{
 				Shop.B2 = 1500;
 				Shop.B3 = 1000;
 				HUD.bounds = 0;
-				
+
 				//hud2.setScore(0);
-				
+
 			} else if(Game.gameState == STATE.PlayerNum) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.SelectP4;
 			}
-			
+
 		}
-		
+
 		if(mouseOver(mx, my, 410, 450)) {
 			if(Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Options;
 			}
 		}
-		
-		
+
+
 		if(mouseOver(mx, my, 410, 150)) {
 			if(Game.gameState == STATE.SelectP1) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -196,7 +196,7 @@ public class Menu extends MouseAdapter{
 					Game.showTrail = true;
 				}
 			}
-		
+
 	}
 		if(mouseOver(mx, my, 210, 250)) {
 			if(Game.gameState == STATE.SelectP1) {
@@ -205,8 +205,8 @@ public class Menu extends MouseAdapter{
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
 				handler.addObject(new HardEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.HardEnemy, handler));
-				
-				
+
+
 				game.diff = 1;
 			} else if(Game.gameState == STATE.SelectP2) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -244,9 +244,9 @@ public class Menu extends MouseAdapter{
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
                 Game.showExtraStats = !Game.showExtraStats;
 			}
-		
+
 	}
-		
+
 		if(mouseOver(mx, my, 10, 350)) {
 			if(Game.gameState == STATE.SelectP1) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -254,8 +254,8 @@ public class Menu extends MouseAdapter{
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
 				handler.addObject(new LunaiticEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.LunaiticEnemy, handler));
-				
-				
+
+
 				game.diff = 2;
 			} else if(Game.gameState == STATE.SelectP2) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -290,7 +290,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 2;
 			}
-		
+
 	}
 	}
 
@@ -304,6 +304,19 @@ public class Menu extends MouseAdapter{
 		
 	}
 
+	private void createButton(Graphics g, String string, int x, int y) {
+		Font fnt = new Font("arial", Font.BOLD, 30);
+
+		FontMetrics fm = g.getFontMetrics(fnt);
+
+		g.setFont(fnt);
+		g.setColor(Color.black);
+		g.fillRect(x,y,200,64);
+		g.setColor(Color.white);
+		g.drawRect(x,y,200,64);
+		g.drawString(string, x + (200 - fm.stringWidth(string)) / 2, y + (64 - fm.getHeight()) / 2 + fm.getAscent());
+	}
+
 	public void render(Graphics g) {
 		if(Game.gameState == STATE.Menu) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
@@ -312,22 +325,13 @@ public class Menu extends MouseAdapter{
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("CubeMan", 240, 70);
-			
-			g.setFont(fnt2);
-			g.drawRect(210, 150, 200, 64);
-			g.drawString("Play", 270, 190);
-		
-			g.drawRect(410, 250, 200, 64);
-			g.drawString("PvP", 470, 290);
-			
-			g.drawRect(210, 350, 200, 64);
-			g.drawString("Quit", 270, 390);
-			
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Help", 270, 490);
-			
-			g.drawRect(410, 450, 200, 64);
-			g.drawString("Options", 470, 490);
+
+            createButton(g, "Play",210, 150);
+            createButton(g, "PvP",410, 250);
+			createButton(g, "Quit", 210, 350);
+			createButton(g, "Help", 210, 450);
+			createButton(g, "Options", 410, 450);
+
 		}else if(Game.gameState == STATE.End) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
@@ -337,14 +341,9 @@ public class Menu extends MouseAdapter{
 			g.drawString("Game Over", 180, 70);
 			
 			g.setFont(fnt2);
-						
-			
-		
-			
-			
-			g.drawRect(210, 350, 200, 64);
-			g.drawString("Try Again?", 245, 390);
-		}else if(Game.gameState == STATE.SelectP1) {
+
+			createButton(g, "Try Again?", 210, 350);
+		}else if(Game.gameState.getType() == Game.stateType.SELECT) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
 			
@@ -353,19 +352,12 @@ public class Menu extends MouseAdapter{
 			g.drawString("SELECT DIFFICULTY", 240, 70);
 			
 			g.setFont(fnt2);
-						
-			g.drawRect(410, 150, 200, 64);
-			
-			g.drawString("Normal", 470, 190);
-					
-			g.drawRect(210, 250, 200, 64);
-			g.drawString("Hard", 270, 290);
-			
-			g.drawRect(10, 350, 200, 64);
-			
-			g.drawString("Lunatic", 70, 390);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
+
+			createButton(g, "Normal", 410, 150);
+			createButton(g, "Hard", 210, 250);
+			createButton(g, "Lunatic", 10, 350);
+			createButton(g, "Back", 210, 450);
+
 		}else if(Game.gameState == STATE.EndPvP) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
@@ -376,57 +368,9 @@ public class Menu extends MouseAdapter{
 			
 			g.setFont(fnt2);
 			g.setColor(Color.white);
-			g.drawString("Winner Player " + Game.winner, 180, 240);		
-			
-		
-			
-			
-			g.drawRect(210, 350, 200, 64);
-			g.drawString("Try Again?", 245, 390);
-		}else if(Game.gameState == STATE.SelectP2) {
-			Font fnt = new Font("arial", Font.BOLD, 50);
-			Font fnt2 = new Font("arial", Font.BOLD, 30);
-			
-			g.setFont(fnt);
-			g.setColor(Color.white);
-			g.drawString("SELECT DIFFICULTY", 240, 70);
-			
-			g.setFont(fnt2);
-						
-			g.drawRect(410, 150, 200, 64);
-			
-			g.drawString("Normal", 470, 190);
-					
-			g.drawRect(210, 250, 200, 64);
-			g.drawString("Hard", 270, 290);
-			
-			g.drawRect(10, 350, 200, 64);
-			
-			g.drawString("Lunatic", 70, 390);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
-		}else if(Game.gameState == STATE.SelectP4) {
-			Font fnt = new Font("arial", Font.BOLD, 50);
-			Font fnt2 = new Font("arial", Font.BOLD, 30);
-			
-			g.setFont(fnt);
-			g.setColor(Color.white);
-			g.drawString("SELECT DIFFICULTY", 240, 70);
-			
-			g.setFont(fnt2);
-						
-			g.drawRect(410, 150, 200, 64);
-			
-			g.drawString("Normal", 470, 190);
-					
-			g.drawRect(210, 250, 200, 64);
-			g.drawString("Hard", 270, 290);
-			
-			g.drawRect(10, 350, 200, 64);
-			
-			g.drawString("Lunatic", 70, 390);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
+			g.drawString("Winner Player " + Game.winner, 180, 240);
+
+			createButton(g, "Try Again?", 210, 350);
 		}else if(Game.gameState == STATE.PlayerNum) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
@@ -436,78 +380,27 @@ public class Menu extends MouseAdapter{
 			g.drawString("SELECT PLAYER AMOUNT", 240, 70);
 			
 			g.setFont(fnt2);
-					
-			g.drawRect(210, 150, 200, 64);
-			g.drawString("1 Player", 270, 190);
-		
-			g.drawRect(410, 250, 200, 64);
-			g.drawString("2 Players", 470, 290);
-			
-			g.drawRect(210, 350, 200, 64);
-			g.drawString("4 Players", 270, 390);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
+
+
+			createButton(g, "Solo", 210, 150);
+			createButton(g, "Duo", 410, 250);
+			createButton(g, "Quad", 210, 350);
+			createButton(g, "Back", 210, 450);
+
 		} else if(Game.gameState == STATE.PvPPlayerNum) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
-			
+
 			g.setFont(fnt);
 			g.setColor(Color.white);
 			g.drawString("SELECT PLAYER AMOUNT", 240, 70);
-			
+
 			g.setFont(fnt2);
-		
-			g.drawRect(210, 150, 200, 64);
-			g.drawString("2 Players", 270, 190);
-			
-			g.drawRect(410, 250, 200, 64);
-			g.drawString("4 Players", 470, 290);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
-		}else if(Game.gameState == STATE.PvPP2Select) {
-			Font fnt = new Font("arial", Font.BOLD, 50);
-			Font fnt2 = new Font("arial", Font.BOLD, 30);
-			
-			g.setFont(fnt);
-			g.setColor(Color.white);
-			g.drawString("SELECT DIFFICULTY", 240, 70);
-			
-			g.setFont(fnt2);
-						
-			g.drawRect(410, 150, 200, 64);
-			
-			g.drawString("Normal", 470, 190);
-					
-			g.drawRect(210, 250, 200, 64);
-			g.drawString("Hard", 270, 290);
-			
-			g.drawRect(10, 350, 200, 64);
-			
-			g.drawString("Lunatic", 70, 390);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
-		}else if(Game.gameState == STATE.PvPP4Select) {
-			Font fnt = new Font("arial", Font.BOLD, 50);
-			Font fnt2 = new Font("arial", Font.BOLD, 30);
-			
-			g.setFont(fnt);
-			g.setColor(Color.white);
-			g.drawString("SELECT DIFFICULTY", 240, 70);
-			
-			g.setFont(fnt2);
-						
-			g.drawRect(410, 150, 200, 64);
-			
-			g.drawString("Normal", 470, 190);
-					
-			g.drawRect(210, 250, 200, 64);
-			g.drawString("Hard", 270, 290);
-			
-			g.drawRect(10, 350, 200, 64);
-			
-			g.drawString("Lunatic", 70, 390);
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
+
+			createButton(g, "2 Players", 210, 150);
+			createButton(g, "4 Players", 410, 250);
+			createButton(g, "Back", 210, 450);
+
 		} else if(Game.gameState == STATE.Help) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
@@ -521,33 +414,26 @@ public class Menu extends MouseAdapter{
 			g.drawString("(with or without friends)", 60, 200);
 			
 			
-			
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
+			createButton(g, "Back", 210, 450);
 		} else if(Game.gameState == STATE.Options) {
 			Font fnt2 = new Font("arial", Font.BOLD, 30);
 			
 			g.setFont(fnt2);
 			g.setColor(Color.white);
 			if (Game.showTrail) {
-				g.drawRect(410, 150, 200, 64);
-				g.drawString("Disable Trail", 420, 190);
+				createButton(g, "Disable Trail", 410, 150);
 			} else {
-				g.drawRect(410, 150, 200, 64);
-				g.drawString("Enable Trail", 420, 190);
+				createButton(g, "Enable Trail", 410, 150);
 			}
 			
 					
 			if (!Game.showExtraStats) {
-				g.drawRect(210, 250, 200, 64);
-				g.drawString("Show Stats", 230, 290);
+				createButton(g, "Show Stats", 210, 250);
 			} else {
-				g.drawRect(210, 250, 200, 64);
-				g.drawString("Hide Stats", 230, 290);
+				createButton(g, "Hide Stats", 210, 250);
 			}
-			
-			g.drawRect(210, 450, 200, 64);
-			g.drawString("Back", 270, 490);
+
+			createButton(g, "Back", 210, 450);
 		}
 	}
 }

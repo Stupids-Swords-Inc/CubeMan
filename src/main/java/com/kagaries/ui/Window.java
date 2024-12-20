@@ -4,7 +4,7 @@ import com.kagaries.main.Game;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
-import javax.swing.JFrame;
+import javax.swing.*;
 // import javafx.application.*;
 // import javafx.stage.Stage;
 // import javafx.scene.Scene;
@@ -20,6 +20,15 @@ public class Window extends Canvas{
 
 	public Window(int width, int height, String title, Game game){
 		JFrame frame = new JFrame(title);
+		JLayeredPane layeredPane = new JLayeredPane();
+		JPanel background = new JPanel();
+		JPanel foreground = new JPanel();
+
+		layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
+		layeredPane.add(foreground, JLayeredPane.PALETTE_LAYER);
+
+		frame.add(layeredPane);
+
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
 		frame.setMinimumSize(new Dimension(width, height));

@@ -4,6 +4,7 @@ package com.kagaries.entity;
 import com.kagaries.entity.trail.Trail;
 import com.kagaries.main.Game;
 import com.kagaries.main.Handler;
+import com.kagaries.player.entity.Player;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -50,10 +51,24 @@ public class MenuParticle extends GameObject {
 		
 		if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;
 		if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
-		
-		handler.addObject(new Trail(x, y, ID.Trail, col, 25, 25, 0.1f, handler));
+
+		collision();
+
+		handler.addObject(new Trail(x, y, ID.Trail, col, 25, 25, 0.05f, handler));
 	}
 
+	private void collision() {
+		for(int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject instanceof Player) {
+				if (getBounds().intersects(tempObject.getBounds())) {
+					velX *= -1;
+					velY *= -1;
+				}
+			}
+		}
+	}
 	
 	public void render(Graphics g) {
 		g.setColor(col);

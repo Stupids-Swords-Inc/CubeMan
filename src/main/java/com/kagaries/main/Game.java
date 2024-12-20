@@ -3,6 +3,7 @@ package com.kagaries.main;
 import com.kagaries.entity.ID;
 import com.kagaries.entity.MenuParticle;
 import com.kagaries.entity.Spawn;
+import com.kagaries.player.entity.Player;
 import com.kagaries.player.input.KeyInput;
 import com.kagaries.ui.Window;
 import com.kagaries.ui.hud.HUD;
@@ -31,6 +32,7 @@ public class Game extends Canvas implements Runnable{
 	public static HUD2 hud2;
 	public static HUD3 hud3;
 	public static HUD4 hud4;
+	public static Canvas window;
 
 	private final Spawn spawner;
 	public int diff = 0;
@@ -46,9 +48,12 @@ public class Game extends Canvas implements Runnable{
 
 	public enum stateType {
 		MENU,
+		SELECT,
 		GAMEP1("game"),
 		GAMEP2("game"),
-		GAMEP4("game");
+		GAMEP4("game"),
+		PVPP2("game"),
+		PVPP4("game");
 
 		private final String type;
 
@@ -68,19 +73,19 @@ public class Game extends Canvas implements Runnable{
 	public enum STATE {
 		Menu(stateType.MENU),
 		PlayerNum(stateType.MENU),
-		SelectP1(stateType.MENU),
-		SelectP2(stateType.MENU),
-		SelectP4(stateType.MENU),
+		SelectP1(stateType.SELECT),
+		SelectP2(stateType.SELECT),
+		SelectP4(stateType.SELECT),
 		Help(stateType.MENU),
 		Options(stateType.MENU),
 		GameP1(stateType.GAMEP1),
 		GameP2(stateType.GAMEP2),
 		GameP4(stateType.GAMEP4),
 		PvPPlayerNum(stateType.MENU),
-		PvPP2Select(stateType.MENU),
-		PvPP4Select(stateType.MENU),
-		PvPP2(stateType.GAMEP2),
-		PvPP4(stateType.GAMEP4),
+		PvPP2Select(stateType.SELECT),
+		PvPP4Select(stateType.SELECT),
+		PvPP2(stateType.PVPP2),
+		PvPP4(stateType.PVPP4),
 		End(stateType.MENU),
 		EndPvP(stateType.MENU);
 
@@ -113,12 +118,13 @@ public class Game extends Canvas implements Runnable{
 		hud4 = new HUD4();
 		this.addKeyListener(new KeyInput(handler, this));
 		this.addMouseListener(menu);
-		new Window(WIDTH, HEIGHT, "CubeMan", this);
+		window = new Window(WIDTH, HEIGHT, "CubeMan", this);
 
 		getLogger().info("Window Init");
 		
 		if (Game.gameState == STATE.Menu){
 			for(int i = 0; i < 1; i++) {
+				handler.addObject(new Player(WIDTH/2, HEIGHT/2, ID.Player, handler));
 				handler.addObject(new MenuParticle(WIDTH/3-164, HEIGHT/2-128, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH/2-100, HEIGHT/2-165, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH -232, HEIGHT/4-128, ID.MenuParticle, handler));
@@ -199,21 +205,21 @@ public class Game extends Canvas implements Runnable{
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
-		if(gameState.getType() == stateType.GAMEP4) {
+
+		if(gameState.getType() == stateType.GAMEP4 || gameState.getType() == stateType.PVPP4) {
 			hud.render(g);
 			hud2.render(g);
 			hud3.render(g);
 			hud4.render(g);
 			handler.render(g);
-		}else if(gameState.getType() == stateType.MENU) {
-			menu.render(g);
+		}else if(gameState.getType() == stateType.MENU || gameState.getType() == stateType.SELECT) {
 			handler.render(g);
+			menu.render(g);
 		}
 		if(paused) {
 			g.setColor(Color.WHITE);
 			g.drawString("PAUSED", 100, 100);
-		} else if(gameState.getType() == stateType.GAMEP2) {
+		} else if(gameState.getType() == stateType.GAMEP2 || gameState.getType() == stateType.PVPP2) {
 			hud.render(g);
 			hud2.render(g);
 			handler.render(g);
@@ -244,7 +250,7 @@ public class Game extends Canvas implements Runnable{
 				gameState = STATE.End;
 				handler.clearEnemys();
 			}
-		}else if(gameState.getType() == stateType.MENU) {
+		}else if(gameState.getType() == stateType.MENU || gameState.getType() == stateType.SELECT) {
 			menu.tick();
 			handler.tick();
 		}else if(!paused && gameState == STATE.PvPP4) {
