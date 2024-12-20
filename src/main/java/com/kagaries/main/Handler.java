@@ -2,6 +2,7 @@ package com.kagaries.main;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import com.kagaries.entity.GameObject;
 import com.kagaries.entity.ID;
@@ -27,7 +28,7 @@ public class Handler {
 			
 		}
 		
-		if (Game.gameState.getType() == Game.stateType.GAME) {
+		if (Objects.equals(Game.gameState.getType().getTypeString(), "game")) {
 			score++;
 		}
 	}

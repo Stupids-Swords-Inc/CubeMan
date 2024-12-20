@@ -14,9 +14,7 @@ import com.kagaries.ui.menu.Shop;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
@@ -36,7 +34,6 @@ public class Game extends Canvas implements Runnable{
 	public static HUD4 hud4;
 	private Spawn spawner;
 	public int diff = 0;
-	private Shop shop;
 	public static int winner = 0;
 
 	private static final StackWalker STACK_WALKER;
@@ -50,7 +47,23 @@ public class Game extends Canvas implements Runnable{
 
 	public enum stateType {
 		MENU,
-		GAME
+		GAMEP1("game"),
+		GAMEP2("game"),
+		GAMEP4("game");
+
+		private final String type;
+
+		stateType() {
+			this.type = "menu";
+		}
+
+		stateType(String type) {
+			this.type = type;
+		}
+
+		public String getTypeString() {
+			return this.type;
+		}
 	}
 
 	public enum STATE {
@@ -61,15 +74,14 @@ public class Game extends Canvas implements Runnable{
 		SelectP4(stateType.MENU),
 		Help(stateType.MENU),
 		Options(stateType.MENU),
-		Shop(stateType.MENU),
-		GameP1(stateType.GAME),
-		GameP2(stateType.GAME),
-		GameP4(stateType.GAME),
+		GameP1(stateType.GAMEP1),
+		GameP2(stateType.GAMEP2),
+		GameP4(stateType.GAMEP4),
 		PvPPlayerNum(stateType.MENU),
 		PvPP2Select(stateType.MENU),
 		PvPP4Select(stateType.MENU),
-		PvPP2(stateType.GAME),
-		PvPP4(stateType.GAME),
+		PvPP2(stateType.GAMEP2),
+		PvPP4(stateType.GAMEP4),
 		End(stateType.MENU),
 		EndPvP(stateType.MENU);
 
@@ -95,7 +107,6 @@ public class Game extends Canvas implements Runnable{
         }
         handler = new Handler();
 		hud = new HUD();
-		shop = new Shop(handler, hud);
 		menu = new Menu(this, handler);
 		spawner = new Spawn(handler, this);
 		hud2 = new HUD2();
@@ -103,7 +114,6 @@ public class Game extends Canvas implements Runnable{
 		hud4 = new HUD4();
 		this.addKeyListener(new KeyInput(handler, this));
 		this.addMouseListener(menu);
-		this.addMouseListener(shop);
 		new Window(WIDTH, HEIGHT, "CubeMan", this);
 
 		getLogger().info("Window Init");
@@ -184,33 +194,31 @@ public class Game extends Canvas implements Runnable{
 			this.createBufferStrategy(3);
 			return;
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);	
-		
-		
-		
-		if(gameState == STATE.GameP4 || gameState == STATE.PvPP4) {
+		if(gameState.getType() == stateType.GAMEP4) {
 			hud.render(g);
 			hud2.render(g);
 			hud3.render(g);
 			hud4.render(g);
 			handler.render(g);
-		}else if(gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.SelectP1 || gameState == STATE.SelectP2 || gameState == STATE.SelectP4 || gameState == STATE.EndPvP || gameState == STATE.PlayerNum || gameState == STATE.PvPPlayerNum || gameState == STATE.PvPP2Select || gameState == STATE.PvPP4Select || gameState == STATE.Help || gameState == STATE.Options) {
+		}else if(gameState.getType() == stateType.MENU) {
 			menu.render(g);
 			handler.render(g);
-		}else if(gameState == STATE.Shop)
-			shop.render(g);
+		}
 		if(paused) {
 			g.setColor(Color.WHITE);
 			g.drawString("PAUSED", 100, 100);
-		} else if(gameState == STATE.GameP2 || gameState == STATE.PvPP2) {
+		} else if(gameState.getType() == stateType.GAMEP2) {
 			hud.render(g);
 			hud2.render(g);
 			handler.render(g);
-		} else if(gameState == STATE.GameP1) {
+		} else if(gameState.getType() == stateType.GAMEP1) {
 			hud.render(g);
 			handler.render(g);
 		}
@@ -220,9 +228,6 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	private void tick() {
-		
-		
-		
 		if(!paused && gameState == STATE.GameP4) {
 			handler.tick();
 			hud.tick();
@@ -240,7 +245,7 @@ public class Game extends Canvas implements Runnable{
 				gameState = STATE.End;
 				handler.clearEnemys();
 			}
-		}else if(gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.SelectP1 || gameState == STATE.SelectP2 || gameState == STATE.SelectP4 || gameState == STATE.EndPvP || gameState == STATE.PlayerNum || gameState == STATE.PvPPlayerNum || gameState == STATE.PvPP2Select || gameState == STATE.PvPP4Select || gameState == STATE.Help || gameState == STATE.Options) {
+		}else if(gameState.getType() == stateType.MENU) {
 			menu.tick();
 			handler.tick();
 		}else if(!paused && gameState == STATE.PvPP4) {
@@ -307,7 +312,7 @@ public class Game extends Canvas implements Runnable{
 				gameState = STATE.End;
 				handler.clearEnemys();
 			}
-		} else if(!paused && gameState == STATE.GameP1) {
+		} else if(!paused && gameState.getType() == stateType.GAMEP1) {
 			handler.tick();
 			hud.tick();
 			spawner.tick();

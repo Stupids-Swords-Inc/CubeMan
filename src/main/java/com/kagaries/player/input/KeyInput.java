@@ -15,10 +15,8 @@ import com.kagaries.ui.hud.HUD4;
 
 public class KeyInput extends KeyAdapter{
 	
-	private Handler handler;
-	private boolean[] keyDown = new boolean[16];
-	static int KeyPresses = 1;
-	static int KeyPresses2 = 1;
+	private final Handler handler;
+	private final boolean[] keyDown = new boolean[16];
 	
 	Game game;
 	
@@ -66,16 +64,7 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_S) { tempObject.setVelY(HUD.speed); keyDown[1]=true; }
 				if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed); keyDown[2]=true; }
 				if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed); keyDown[3]=true; }
-				
-				
-				if(Game.gameState == STATE.GameP1 || Game.gameState == STATE.GameP2) {
-					if(KeyPresses >= 1) {
-						if(key == KeyEvent.VK_Q) {
-							HUD.HEALTH += 100;
-							KeyPresses--;
-						}
-					}
-				}
+
 				if(key == KeyEvent.VK_ESCAPE) {
 					Game.gameState = STATE.Menu;
 					
@@ -88,10 +77,11 @@ public class KeyInput extends KeyAdapter{
 					Game.gameState = STATE.End;
 					handler.clearEnemys();
 				}
+
 				if(key == KeyEvent.VK_P) {
-					if (Game.paused == false) {
+					if (!Game.paused) {
 						Game.paused = true;
-					} else if (Game.paused == true) {
+					} else if (Game.paused) {
 						Game.paused = false;
 					}
 				}
@@ -102,17 +92,7 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_DOWN) { tempObject.setVelY(HUD2.speed); keyDown[5]=true; }
 					if(key == KeyEvent.VK_LEFT) { tempObject.setVelX(-HUD2.speed); keyDown[6]=true; }
 					if(key == KeyEvent.VK_RIGHT) { tempObject.setVelX(HUD2.speed); keyDown[7]=true; }
-
-				
-				if(Game.gameState == STATE.GameP2) {
-					if(KeyPresses2 >= 1) {
-						if(key == KeyEvent.VK_CONTROL) {
-							HUD2.HEALTH += 100;
-							KeyPresses2--;
-						}
-				}
-				}
-				}
+			}
 			
 			if(tempObject.getId() == ID.Player3) {
 					if(key == KeyEvent.VK_I) { tempObject.setVelY(-HUD3.speed); keyDown[8]=true; }

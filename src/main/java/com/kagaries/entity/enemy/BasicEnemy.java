@@ -30,6 +30,6 @@ public class BasicEnemy extends Enemy {
 		if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;
 		if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
 		
-		//handler.addObject(new Trail(x, y, ID.Trail, this.color, 16, 16, 0.15f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, this.color, 16, 16, 0.15f, handler));
 	}
 }
