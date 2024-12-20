@@ -39,6 +39,7 @@ public class ResourceLoader {
         List<String> names = getResourceFiles("");
 
         for (String string : names) {
+            Game.getLogger().info("Loading: {}", string);
             getResourceAsStream(string);
         }
     }

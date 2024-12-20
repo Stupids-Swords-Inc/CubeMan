@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.kagaries.audio.AudioRegistry;
+import com.kagaries.audio.SimpleAudioPlayer;
 import com.kagaries.entity.enemy.BasicEnemy;
 import com.kagaries.entity.enemy.HardEnemy;
 import com.kagaries.entity.enemy.LunaiticEnemy;
@@ -36,11 +38,13 @@ public class Menu extends MouseAdapter{
 
 		if(mouseOver(mx, my, 210, 150, 200, 64)) {
 			if(Game.gameState == STATE.Menu) {
-				
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PlayerNum;
 			} else if(Game.gameState == STATE.PlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.SelectP1;
 			} else if(Game.gameState == STATE.PvPPlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP2Select;
 			}
 			
@@ -48,34 +52,47 @@ public class Menu extends MouseAdapter{
 		
 		if(mouseOver(mx, my, 210, 450, 200, 64)) {
 			if (Game.gameState == STATE.Menu) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Help;
 			} else if (Game.gameState == STATE.Help) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Menu;
 			} else if (Game.gameState == STATE.SelectP1) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PlayerNum;
 			} else if (Game.gameState == STATE.SelectP2) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PlayerNum;
 			} else if (Game.gameState == STATE.SelectP4) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PlayerNum;
 			} else if (Game.gameState == STATE.PvPPlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Menu;
 			} else if (Game.gameState == STATE.PlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Menu;
 			} else if (Game.gameState == STATE.PvPP2Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPPlayerNum;
 			} else if (Game.gameState == STATE.PvPP4Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPPlayerNum;
 			} else if (Game.gameState == STATE.Options) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Menu;
 			}
 		}
 		
 		if(mouseOver(mx, my, 410, 250, 200, 64)) {
 			if(Game.gameState == STATE.Menu) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPPlayerNum;
 			} else if(Game.gameState == STATE.PlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.SelectP2;
 			} else if(Game.gameState == STATE.PvPPlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP4Select;
 			}
 		}
@@ -83,9 +100,10 @@ public class Menu extends MouseAdapter{
 		
 		if(mouseOver(mx, my, 210, 350, 200, 64)) {
 			if(Game.gameState == STATE.Menu) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				System.exit(1);
 			}else if(Game.gameState == STATE.End || Game.gameState == STATE.EndPvP) {
-				
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				HUD.HEALTH = 100;
 				HUD2.HEALTH = 100;
 				HUD3.HEALTH = 100;
@@ -114,6 +132,7 @@ public class Menu extends MouseAdapter{
 				//hud2.setScore(0);
 				
 			} else if(Game.gameState == STATE.PlayerNum) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.SelectP4;
 			}
 			
@@ -121,6 +140,7 @@ public class Menu extends MouseAdapter{
 		
 		if(mouseOver(mx, my, 410, 450, 200, 64)) {
 			if(Game.gameState == STATE.Menu) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Options;
 			}
 		}
@@ -128,7 +148,7 @@ public class Menu extends MouseAdapter{
 		
 		if(mouseOver(mx, my, 410, 150, 200, 64)) {
 			if(Game.gameState == STATE.SelectP1) {
-				
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP1;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -136,6 +156,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 0;
 			} else if(Game.gameState == STATE.SelectP2) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -143,6 +164,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 0;
 			} else if(Game.gameState == STATE.SelectP4) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -150,6 +172,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 0;
 			} else if(Game.gameState == STATE.PvPP2Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -157,6 +180,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 0;
 			} else if(Game.gameState == STATE.PvPP4Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -164,9 +188,11 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 0;
 			} else if(Game.gameState == STATE.Options) {
-				if(Game.showTrail == true) {
+				if(Game.showTrail) {
+					SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 					Game.showTrail = false;
-				} else if(Game.showTrail == false) {
+				} else if(!Game.showTrail) {
+					SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 					Game.showTrail = true;
 				}
 			}
@@ -174,7 +200,7 @@ public class Menu extends MouseAdapter{
 	}
 		if(mouseOver(mx, my, 210, 250, 200, 64)) {
 			if(Game.gameState == STATE.SelectP1) {
-				
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP1;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -183,6 +209,7 @@ public class Menu extends MouseAdapter{
 				
 				game.diff = 1;
 			} else if(Game.gameState == STATE.SelectP2) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -190,6 +217,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 1;
 			} else if(Game.gameState == STATE.SelectP4) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -197,6 +225,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 1;
 			} else if(Game.gameState == STATE.PvPP2Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -204,6 +233,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 1;
 			} else if(Game.gameState == STATE.PvPP4Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -211,6 +241,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 1;
 			} else if(Game.gameState == STATE.Options) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				if(Game.showExtraStats == false) {
 					Game.showExtraStats = true;
 					
@@ -223,7 +254,7 @@ public class Menu extends MouseAdapter{
 		
 		if(mouseOver(mx, my, 10, 350, 200, 64)) {
 			if(Game.gameState == STATE.SelectP1) {
-				
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP1;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -232,6 +263,7 @@ public class Menu extends MouseAdapter{
 				
 				game.diff = 2;
 			} else if(Game.gameState == STATE.SelectP2) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -239,6 +271,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 2;
 			} else if(Game.gameState == STATE.SelectP4) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -246,6 +279,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 2;
 			} else if(Game.gameState == STATE.PvPP2Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -253,6 +287,7 @@ public class Menu extends MouseAdapter{
 				handler.clearEnemys();
 				game.diff = 2;
 			} else if(Game.gameState == STATE.PvPP4Select) {
+				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();

@@ -1,5 +1,6 @@
 package com.kagaries.player.entity;
 
+import com.kagaries.audio.AudioRegistry;
 import com.kagaries.audio.SimpleAudioPlayer;
 import com.kagaries.entity.GameObject;
 import com.kagaries.main.Game;
@@ -8,10 +9,7 @@ import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
 import com.kagaries.ui.hud.HudInterface;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,7 +90,7 @@ public class Player extends GameObject {
 
 			if(tempObject.getId().getDamage() != 0) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					SimpleAudioPlayer.playSound("hitHurt.wav");
+					SimpleAudioPlayer.playSound(AudioRegistry.PLAYER_HURT);
                     hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
 					lastCollisionTime = currentTime;
 				}
