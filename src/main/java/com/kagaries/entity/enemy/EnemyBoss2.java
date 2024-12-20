@@ -63,4 +63,12 @@ public class EnemyBoss2 extends Enemy {
 		g.fillRect((int)x, (int)y, 155, 155);
 	}
 
+	@Override
+	public void enableTick() {
+		if (timeToSpawn <= 0 && !this.enabled) {
+			this.enabled = true;
+		} else {
+			--timeToSpawn;
+		}
+	}
 }

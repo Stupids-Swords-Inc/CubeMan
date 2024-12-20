@@ -62,7 +62,21 @@ public class TestCircleEnemy extends Enemy {
         Graphics2D g2d = (Graphics2D) g;
 
         //g2d.fillRect((int)x - 8, (int)y + 6, 48, 16);
+
+        if (!enabled) {
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }
+
         g2d.setColor(this.color);
         g2d.fillOval((int)x, (int)y, 32, 32);
+    }
+
+    @Override
+    public void enableTick() {
+        if (timeToSpawn <= 0 && !this.enabled) {
+            this.enabled = true;
+        } else {
+            --timeToSpawn;
+        }
     }
 }

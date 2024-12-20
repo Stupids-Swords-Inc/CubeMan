@@ -10,7 +10,6 @@ import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 import com.kagaries.ui.menu.Menu;
-import com.kagaries.ui.menu.Shop;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -26,22 +25,21 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	public static boolean paused = false;
-	private Handler handler;
+	private final Handler handler;
+
 	public static HUD hud;
-	@SuppressWarnings("unused")
 	public static HUD2 hud2;
 	public static HUD3 hud3;
 	public static HUD4 hud4;
-	private Spawn spawner;
+
+	private final Spawn spawner;
 	public int diff = 0;
 	public static int winner = 0;
-
-	private static final StackWalker STACK_WALKER;
 	
 	public static boolean showTrail = true;
 	public static boolean showExtraStats = false;
 	
-	private Menu menu;
+	private final Menu menu;
 
 	public static ResourceLoader resourceLoader = new ResourceLoader();
 
@@ -85,7 +83,7 @@ public class Game extends Canvas implements Runnable{
 		End(stateType.MENU),
 		EndPvP(stateType.MENU);
 
-		private stateType type;
+		private final stateType type;
 
 		STATE(stateType type) {
 			this.type = type;
@@ -122,11 +120,11 @@ public class Game extends Canvas implements Runnable{
 			for(int i = 0; i < 1; i++) {
 				handler.addObject(new MenuParticle(WIDTH/3-164, HEIGHT/2-128, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH/2-100, HEIGHT/2-165, ID.MenuParticle, handler));
-				handler.addObject(new MenuParticle(WIDTH/1-232, HEIGHT/4-128, ID.MenuParticle, handler));
+				handler.addObject(new MenuParticle(WIDTH -232, HEIGHT/4-128, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH/2-100, HEIGHT/4-167, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH/2-255, HEIGHT/3-245, ID.MenuParticle, handler));
-				handler.addObject(new MenuParticle(WIDTH/2-168, HEIGHT/1-245, ID.MenuParticle, handler));
-				handler.addObject(new MenuParticle(WIDTH/1-125, HEIGHT/2-89, ID.MenuParticle, handler));
+				handler.addObject(new MenuParticle(WIDTH/2-168, HEIGHT -245, ID.MenuParticle, handler));
+				handler.addObject(new MenuParticle(WIDTH -125, HEIGHT/2-89, ID.MenuParticle, handler));
 				handler.addObject(new MenuParticle(WIDTH/2-94, HEIGHT/3-10, ID.MenuParticle, handler));
 
 			}
@@ -153,7 +151,7 @@ public class Game extends Canvas implements Runnable{
 			running = false;
 			
 		}catch(Exception e) {
-			e.printStackTrace();
+			getLogger().error(e.getLocalizedMessage());
 		}
 	}
 	
@@ -354,18 +352,11 @@ public class Game extends Canvas implements Runnable{
 	
 	public static float clamp(float var, float min, float max) {
 		if(var >= max)
-			return var = max;
-		else if(var <= min)
-			return var = min;
-		else
-			return var;
+			return max;
+		else return Math.max(var, min);
 	}
 
-	public static void main(String agrs[]) {
+	public static void main(String[] agrs) {
 		new Game();
-	}
-
-	static {
-		STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 	}
 }

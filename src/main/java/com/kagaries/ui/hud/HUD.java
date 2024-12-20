@@ -24,7 +24,7 @@ public class HUD implements HudInterface {
 	public void tick() {
 		
 		
-		HEALTH = Game.clamp(HEALTH, 0, 100+(bounds/2));
+		HEALTH = Game.clamp(HEALTH, 0, 100+((float) bounds /2));
 		graze = (int) Game.clamp(graze, 0, 100);
 		HUD.greenValue = Game.clamp(HUD.greenValue, 0, 255);
 		
@@ -35,12 +35,12 @@ public class HUD implements HudInterface {
 				canRevive = true;
 			} else if (reviveTimer < 500) {
 				reviveTimer++;
-			} else if(HUD.HEALTH > 0) {
-				reviveTimer = 0;
-				canRevive = false;
-				bounds = 0;
-				speed = 6;
 			}
+		} else if(HUD.HEALTH > 0) {
+			reviveTimer = 0;
+			canRevive = false;
+			bounds = 0;
+			speed = 6;
 		}
 		
 		if(graze >= 100) {
@@ -63,12 +63,12 @@ public class HUD implements HudInterface {
 		g.drawString("Player1", 15, 13);
 		g.drawString("GRAZE: " + (int) graze, 155, 13);
 		
-		if(HEALTH <= 0 && Game.showExtraStats == false) {
+		if(HEALTH <= 0 && !Game.showExtraStats) {
 			g.setColor(Color.WHITE);
 			g.drawString("Player1 Died.", 15, 100);
 		}
 		
-		if (Game.showExtraStats == true &!(Game.gameState == STATE.PvPP2) &!(Game.gameState == STATE.PvPP4)) {
+		if (Game.showExtraStats &!(Game.gameState == STATE.PvPP2) &!(Game.gameState == STATE.PvPP4)) {
 			g.drawString("Health: " + (int) HEALTH, 75, 13);
 			g.drawString("SPD: " + speed, 15, 94);
 			g.drawString("reviveTimer: " + reviveTimer, 15, 109);
@@ -83,7 +83,7 @@ public class HUD implements HudInterface {
 
 	@Override
 	public float getHealth() {
-		return this.HEALTH;
+		return HEALTH;
 	}
 
 	@Override

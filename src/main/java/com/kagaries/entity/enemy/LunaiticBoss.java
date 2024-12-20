@@ -64,4 +64,12 @@ public class LunaiticBoss extends Enemy {
 		g.fillRect((int)x, (int)y, 128, 128);
 	}
 
+	@Override
+	public void enableTick() {
+		if (timeToSpawn <= 0 && !this.enabled) {
+			this.enabled = true;
+		} else {
+			--timeToSpawn;
+		}
+	}
 }

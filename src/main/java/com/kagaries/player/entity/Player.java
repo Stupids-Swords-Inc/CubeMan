@@ -3,6 +3,7 @@ package com.kagaries.player.entity;
 import com.kagaries.audio.AudioRegistry;
 import com.kagaries.audio.SimpleAudioPlayer;
 import com.kagaries.entity.GameObject;
+import com.kagaries.entity.enemy.Enemy;
 import com.kagaries.main.Game;
 import com.kagaries.player.entity.graze.GrazeBox;
 import com.kagaries.main.Handler;
@@ -17,10 +18,8 @@ public class Player extends GameObject {
 	
 	Handler handler;
 	private long lastCollisionTime = 0;
-	private final long collisionCooldown = 500; // Cooldown in milliseconds
-	public static boolean isBlinking = false;
-	private final int blinkInterval = 25; // Blink interval in milliseconds
-	private boolean shouldRenderPlayer = true;
+    public static boolean isBlinking = false;
+    private boolean shouldRenderPlayer = true;
 
 	private final Color color;
 	private final HudInterface hud;
@@ -88,11 +87,15 @@ public class Player extends GameObject {
 
 			GameObject tempObject = handler.object.get(i);
 
-			if(tempObject.getId().getDamage() != 0) {
+            // Cooldown in milliseconds
+            long collisionCooldown = 500;
+            if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
-					SimpleAudioPlayer.playSound(AudioRegistry.PLAYER_HURT);
-                    hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
-					lastCollisionTime = currentTime;
+					if (((Enemy) tempObject).enabled) {
+						SimpleAudioPlayer.playSound(AudioRegistry.PLAYER_HURT);
+						hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
+						lastCollisionTime = currentTime;
+					}
 				}
 			} else if (currentTime - lastCollisionTime < collisionCooldown) {
 				if (!isBlinking) {
@@ -112,7 +115,9 @@ public class Player extends GameObject {
 
 			private void startBlinking() {
 			    Timer timer = new Timer();
-			    timer.scheduleAtFixedRate(new TimerTask() {
+                // Blink interval in milliseconds
+                int blinkInterval = 25;
+                timer.scheduleAtFixedRate(new TimerTask() {
 			        @Override
 			        public void run() {
 			            shouldRenderPlayer = !shouldRenderPlayer; // Toggle rendering on and off

@@ -5,6 +5,7 @@ import com.kagaries.main.Game;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -25,23 +26,18 @@ public class SimpleAudioPlayer {
            try {
                AudioInputStream audioInputStream;
 
-               Game.getLogger().info("Getting Resource");
                InputStream inputStream = Game.getResourceLoader().getResourceAsStream(audioRegistry.getPath());
 
-               Game.getLogger().info("getAudioInputStream");
                audioInputStream = AudioSystem.getAudioInputStream(inputStream);
 
-               Game.getLogger().info("Getting Clip");
                clip = AudioSystem.getClip();
 
-               Game.getLogger().info("Opening for AudioInputStream");
                clip.open(audioInputStream);
 
                FloatControl gainControl =
                        (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                gainControl.setValue(audioRegistry.getGain());
 
-               Game.getLogger().info("Starting Clip");
                clip.start();
 
                stopNearEnd(clip, audioRegistry);

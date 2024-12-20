@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.kagaries.entity.GameObject;
 import com.kagaries.entity.ID;
+import com.kagaries.entity.enemy.Enemy;
 import com.kagaries.main.Game.STATE;
 import com.kagaries.player.entity.Player;
 import com.kagaries.ui.hud.HUD;
@@ -23,9 +24,15 @@ public class Handler {
 	public void tick() {
 		for(int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
-			
-			tempObject.tick();
-			
+
+			if (tempObject instanceof Enemy) {
+				((Enemy) tempObject).enableTick();
+				if (((Enemy) tempObject).enabled) {
+					tempObject.tick();
+				}
+			} else {
+				tempObject.tick();
+			}
 		}
 		
 		if (Objects.equals(Game.gameState.getType().getTypeString(), "game")) {

@@ -39,4 +39,13 @@ public class RandomEnemy extends Enemy {
 		
 		handler.addObject(new Trail(x, y, ID.Trail, this.color, 16, 16, 0.15f, handler));
 	}
+
+	@Override
+	public void enableTick() {
+		if (timeToSpawn <= 0 && !this.enabled) {
+			this.enabled = true;
+		} else {
+			--timeToSpawn;
+		}
+	}
 }

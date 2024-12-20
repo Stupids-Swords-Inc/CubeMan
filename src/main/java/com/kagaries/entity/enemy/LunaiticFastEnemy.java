@@ -6,8 +6,7 @@ import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
 import com.kagaries.entity.trail.Trail;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.Random;
 
 public class LunaiticFastEnemy extends Enemy {
@@ -48,8 +47,22 @@ public class LunaiticFastEnemy extends Enemy {
 
 	
 	public void render(Graphics g) {
-		g.setColor(this.color);
-		g.fillRect((int)x, (int)y, 25, 25);
+		Graphics2D g2d = (Graphics2D) g;
+
+		if (!enabled) {
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		}
+
+		g2d.setColor(this.color);
+		g2d.fillRect((int)x, (int)y, 25, 25);
 	}
 
+	@Override
+	public void enableTick() {
+		if (timeToSpawn <= 0 && !this.enabled) {
+			this.enabled = true;
+		} else {
+			--timeToSpawn;
+		}
+	}
 }
