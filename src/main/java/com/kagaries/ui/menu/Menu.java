@@ -20,8 +20,6 @@ import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 
-import javax.swing.*;
-
 public class Menu extends MouseAdapter {
 	
 	private final Game game;
@@ -281,7 +279,6 @@ public class Menu extends MouseAdapter {
 
 
 				game.diff = 2;
-				return;
 			} else if(Game.gameState == STATE.SelectP2) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP2;
@@ -290,7 +287,6 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
-				return;
 			} else if(Game.gameState == STATE.SelectP4) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.GameP4;
@@ -299,7 +295,6 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
-				return;
 			} else if(Game.gameState == STATE.PvPP2Select) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP2;
@@ -308,7 +303,6 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
-				return;
 			} else if(Game.gameState == STATE.PvPP4Select) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.PvPP4;
@@ -317,9 +311,7 @@ public class Menu extends MouseAdapter {
 				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
-				return;
 			}
-
 		}
 	}
 
