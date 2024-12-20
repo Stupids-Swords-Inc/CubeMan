@@ -109,6 +109,7 @@ public class Player extends GameObject {
 
 	public void dash() {
 		if (canDash) {
+			SimpleAudioPlayer.playSound(AudioRegistry.DASH);
 			hud.setSpeed(10);
 			dashCooldown = 100;
 			canDash = false;

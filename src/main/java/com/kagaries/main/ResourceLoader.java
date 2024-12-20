@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 
 public class ResourceLoader {
     public InputStream getResourceAsStream(String fileName) {
@@ -19,16 +21,24 @@ public class ResourceLoader {
         return inputStream;
     }
 
-    private List<String> getResourceFiles() throws IOException {
+    private List<String> getResourceFiles(String path) throws IOException {
         List<String> filenames = new ArrayList<>();
 
-        try (
-                InputStream in = getResourceAsStream("");
-                BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-            String resource;
+        // Ensure the path ends with a "/"
+        if (!path.endsWith("/")) {
+            path += "/";
+        }
 
-            while ((resource = br.readLine()) != null) {
-                filenames.add(resource);
+        // Use ClassLoader to list resources
+        Enumeration<java.net.URL> resources = getClass().getClassLoader().getResources(path);
+
+        while (resources.hasMoreElements()) {
+            java.net.URL resource = resources.nextElement();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.openStream()))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    filenames.add(path + line); // Prepend the directory path
+                }
             }
         }
 
@@ -36,7 +46,8 @@ public class ResourceLoader {
     }
 
     public void preloadResources() throws IOException {
-        List<String> names = getResourceFiles();
+        String resourceDirectory = "src/main/resources"; // Specify your directory
+        List<String> names = getResourceFiles(resourceDirectory);
 
         for (String string : names) {
             Game.getLogger().info("Loading: {}", string);

@@ -3,6 +3,7 @@ package com.kagaries.audio;
 import com.kagaries.main.Game;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Timer;
@@ -25,24 +26,26 @@ public class SimpleAudioPlayer {
             return;
         }
         Thread thread = new Thread(() -> {
-           try {
-               AudioInputStream audioInputStream;
+            AudioInputStream audioInputStream;
 
-               InputStream inputStream = Game.getResourceLoader().getResourceAsStream(audioRegistry.getPath());
+            InputStream inputStream = Game.getResourceLoader().getResourceAsStream(audioRegistry.getPath());
 
-               audioInputStream = AudioSystem.getAudioInputStream(inputStream);
+            try (BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
+                audioInputStream = AudioSystem.getAudioInputStream(bufferedInputStream);
 
-               clip = AudioSystem.getClip();
+                // Get and open a Clip
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
 
-               clip.open(audioInputStream);
+                // Adjust the gain/volume
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(audioRegistry.getGain());
 
-               FloatControl gainControl =
-                       (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-               gainControl.setValue(audioRegistry.getGain());
+                // Start playback
+                clip.start();
 
-               clip.start();
-
-               stopNearEnd(clip, audioRegistry);
+                // Stop near the end of the clip
+                stopNearEnd(clip, audioRegistry);
            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                throw new RuntimeException(e);
            }
@@ -57,12 +60,12 @@ public class SimpleAudioPlayer {
             return;
         }
         Thread thread = new Thread(() -> {
-            try {
-                AudioInputStream audioInputStream;
+            AudioInputStream audioInputStream;
 
-                InputStream inputStream = Game.getResourceLoader().getResourceAsStream(audioRegistry.getPath());
+            InputStream inputStream = Game.getResourceLoader().getResourceAsStream(audioRegistry.getPath());
 
-                audioInputStream = AudioSystem.getAudioInputStream(inputStream);
+            try (BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
+                audioInputStream = AudioSystem.getAudioInputStream(bufferedInputStream);
                 AudioFormat originalFormat = audioInputStream.getFormat();
 
                 float newSampleRate = originalFormat.getSampleRate() / (damage / 3);
