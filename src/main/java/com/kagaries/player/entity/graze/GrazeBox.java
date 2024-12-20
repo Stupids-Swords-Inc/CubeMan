@@ -20,6 +20,7 @@ public class GrazeBox extends GameObject {
 	private final HudInterface hud;
 
 	private boolean dashing;
+	private boolean blinking;
 
 	public GrazeBox(int x, int y, ID id, ID playerID, Handler handler) {
 		super(x, y, id);
@@ -41,6 +42,7 @@ public class GrazeBox extends GameObject {
 				y = tempObject.getY();
 				if (tempObject instanceof Player) {
 					dashing = ((Player) tempObject).dashing;
+					blinking = ((Player) tempObject).isBlinking;
 				}
 			}
 			
@@ -79,7 +81,7 @@ public class GrazeBox extends GameObject {
 					hud.setGraze(hud.getGraze() + tempObject.getId().getGraze());
 					lastCollisionTime = currentTime;
 				}
-			} else if (currentTime - lastCollisionTime < collisionCooldown || Player.isBlinking) {
+			} else if (currentTime - lastCollisionTime < collisionCooldown || blinking) {
 		        return; 
 		    }
 	    }

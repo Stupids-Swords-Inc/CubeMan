@@ -1,6 +1,7 @@
 package com.kagaries.entity.bullet;
 
 import com.kagaries.entity.GameObject;
+import com.kagaries.entity.enemy.Enemy;
 import com.kagaries.main.Game;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
@@ -10,13 +11,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class EnemyBoss2Bullet extends GameObject {
+public class EnemyBoss2Bullet extends Enemy {
 	
 	private Handler handler;
 	Random r = new Random();
 
 	public EnemyBoss2Bullet(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
+		super(x, y, id, handler);
 		
 		this.handler = handler;
 		
@@ -41,7 +42,12 @@ public class EnemyBoss2Bullet extends GameObject {
 		//handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, 25, 25, 0.1f, handler));
 	}
 
-	
+	@Override
+	public void enableTick() {
+		this.enabled = true;
+	}
+
+
 	public void render(Graphics g) {
 		g.setColor(Color.yellow);
 		g.fillRect((int)x, (int)y, 32, 32);

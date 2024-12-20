@@ -21,13 +21,13 @@ public class Player extends GameObject {
 	
 	Handler handler;
 	private long lastCollisionTime = 0;
-    public static boolean isBlinking = false;
+    public boolean isBlinking = false;
     boolean shouldRenderPlayer = true;
 
 	public boolean dashing = false;
-	static boolean canDash = true;
-	private static int dashCooldown = 0;
-	private static int dashTime = 0;
+	boolean canDash = true;
+	private int dashCooldown = 0;
+	private int dashTime = 0;
 
 	final Color color;
 	private final HudInterface hud;
@@ -96,19 +96,19 @@ public class Player extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		float alpha = 0.5f;
-		float innerAlpha = canDash ? 1f : 0.25f;
+		float innerAlpha = this.canDash ? 1f : 0.25f;
 
 	    if (shouldRenderPlayer) {
+			g2d.setColor(this.color);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, innerAlpha));
 			g2d.fillRect((int)x + 10, (int)y + 10, 12, 12);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-	        g2d.setColor(this.color);
 	        g2d.fillRect((int)x, (int)y, 32, 32);
 	    }
 	}
 
 	public void dash() {
-		if (canDash) {
+		if (this.canDash) {
 			SimpleAudioPlayer.playSound(AudioRegistry.DASH);
 			hud.setSpeed(10);
 			dashCooldown = 100;
