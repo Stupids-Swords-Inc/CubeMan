@@ -76,7 +76,7 @@ public class Menu extends MouseAdapter {
 		if(mouseOver(mx, my, 210, 450)) {
 			if (Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
-				Game.gameState = STATE.Help;
+				System.exit(1);
 				return;
 			} else if (Game.gameState == STATE.Help) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
@@ -120,7 +120,7 @@ public class Menu extends MouseAdapter {
 		if(mouseOver(mx, my, 210, 350)) {
 			if(Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
-				System.exit(1);
+				Game.gameState = STATE.Help;
 			}else if(Game.gameState == STATE.End || Game.gameState == STATE.EndPvP) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				HUD.HEALTH = 100;
@@ -158,7 +158,7 @@ public class Menu extends MouseAdapter {
 
 		}
 
-		if(mouseOver(mx, my, 410, 450)) {
+		if(mouseOver(mx, my, 510, 450)) {
 			if(Game.gameState == STATE.Menu) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
 				Game.gameState = STATE.Options;
@@ -356,9 +356,9 @@ public class Menu extends MouseAdapter {
 
             createButton(g, "Play",210, 150);
             createButton(g, "PvP",210, 250);
-			createButton(g, "Quit", 210, 350);
-			createButton(g, "Help", 210, 450);
-			createButton(g, "Options", 410, 450);
+			createButton(g, "Help", 210, 350);
+			createButton(g, "Quit", 210, 450);
+			createButton(g, "Options", 510, 450);
 
 		}else if(Game.gameState == STATE.End) {
 			Font fnt = new Font("arial", Font.BOLD, 50);
