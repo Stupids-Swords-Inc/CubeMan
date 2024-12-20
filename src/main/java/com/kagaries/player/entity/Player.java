@@ -96,8 +96,10 @@ public class Player extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		float alpha = 0.5f;
+		float innerAlpha = canDash ? 1f : 0.25f;
 
 	    if (shouldRenderPlayer) {
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, innerAlpha));
 			g2d.fillRect((int)x + 10, (int)y + 10, 12, 12);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 	        g2d.setColor(this.color);
