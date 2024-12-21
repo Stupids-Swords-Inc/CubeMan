@@ -10,6 +10,7 @@ import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 import com.kagaries.ui.menu.Menu;
+import com.kagaries.util.json.JsonReader;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -17,11 +18,14 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
+import static com.kagaries.util.json.JsonReader.readJson;
+
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = 7580815534084638412L;
-	
-	public static final int WIDTH = 940, HEIGHT = WIDTH / 12 * 9;
+
+	public static ResourceLoader resourceLoader = new ResourceLoader();
+	public static final int WIDTH = readJson("settings", "data").path("windowWidth").asInt(), HEIGHT = WIDTH / 12 * 9;
 	private Thread thread;
 	private boolean running = false;
 	public static boolean paused = false;
@@ -44,8 +48,6 @@ public class Game extends Canvas implements Runnable{
 	private final Menu menu;
 
 	public static KeyInput keyInput;
-
-	public static ResourceLoader resourceLoader = new ResourceLoader();
 
 	public enum stateType {
 		MENU,
@@ -165,7 +167,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run() {
 		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
+		double amountOfTicks = readJson("settings","data").path("tickAmount").asDouble();
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
@@ -183,7 +185,7 @@ public class Game extends Canvas implements Runnable{
 				render();
 			frames++;
 			
-			frames = (int) clamp(frames, 0, 60);
+			frames = (int) clamp(frames, 0, readJson("settings","data").path("maxFrames").asInt());
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;

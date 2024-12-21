@@ -42,6 +42,70 @@
           }
         }
       }
+    ],
+    "10.0": [
+      {
+        "clear": true,
+        "id": "EnemyBoss",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": -96
+          }
+        }
+      }
+    ],
+    "12.5": [
+      {
+        "clear": true,
+        "revive": true,
+        "id": "ShooterEnemy",
+        "amount": 2,
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          },
+          "2": {
+            "x": 370,
+            "y": 5
+          }
+        }
+      }
+    ],
+    "13.5": [
+      {
+        "id": "BasicEnemy",
+        "amount": 6
+      }
+    ],
+    "16.5": [
+      {
+        "id": "FastEnemy",
+        "amount": 4
+      }
+    ],
+    "20.0": [
+      {
+        "clear": true,
+        "id": "EnemyBoss2",
+        "positions": {
+          "x": 470,
+          "y": -96
+        }
+      }
+    ],
+    "21.5": [
+      {
+        "id": "BasicEnemy",
+        "amount": 3
+      }
+    ],
+    "23.0": [
+      {
+        "id": "FastEnemy",
+        "amount": 4
+      }
     ]
   }
 }

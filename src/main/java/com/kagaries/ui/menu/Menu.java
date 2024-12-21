@@ -20,6 +20,7 @@ import com.kagaries.ui.hud.HUD;
 import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
+import com.kagaries.util.json.JsonReader;
 
 public class Menu extends MouseAdapter {
 	
@@ -169,7 +170,7 @@ public class Menu extends MouseAdapter {
 			if(Game.gameState == STATE.SelectP1) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
                 try {
-                    game.spawner.setJson("normal");
+                    game.spawner.setJson(JsonReader.readSettingsJson().path("normalModeName").asText());
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -182,6 +183,11 @@ public class Menu extends MouseAdapter {
 				return;
 			} else if(Game.gameState == STATE.SelectP2) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("normalModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.GameP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -191,6 +197,11 @@ public class Menu extends MouseAdapter {
 				return;
 			} else if(Game.gameState == STATE.SelectP4) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("normalModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.GameP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -200,6 +211,11 @@ public class Menu extends MouseAdapter {
 				return;
 			} else if(Game.gameState == STATE.PvPP2Select) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("normalModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.PvPP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
@@ -209,6 +225,11 @@ public class Menu extends MouseAdapter {
 				return;
 			} else if(Game.gameState == STATE.PvPP4Select) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("normalModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.PvPP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();

@@ -19,6 +19,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
+import static com.kagaries.util.json.JsonReader.readSettingsJson;
+
 public class Player extends GameObject {
 	
 	Handler handler;
@@ -82,7 +84,7 @@ public class Player extends GameObject {
 			dashing = false;
 		}
 
-		if (dashing && !(Game.gameState == Game.STATE.PvPP2) && !(Game.gameState == Game.STATE.PvPP4)) {
+		if (dashing && !(Game.gameState == Game.STATE.PvPP2) && !(Game.gameState == Game.STATE.PvPP4) && !readSettingsJson().path("doPvPDamageAlways").asBoolean()) {
 			handler.addObject(new Trail(x, y, ID.Trail, this.color, 32, 32, 0.125f, handler));
 		} else if (dashing) {
 			handler.addObject(new DamageTrail(x, y, ID.DamageTrail, this.color, 32, 32, 0.01f, handler, this));
@@ -111,6 +113,10 @@ public class Player extends GameObject {
 		float healthAlpha = 1.0f;
 		float innerAlpha = this.canDash ? 1f : 0.25f;
 
+		if (!readSettingsJson().path("allowDash").asBoolean()) {
+			innerAlpha = 0.25f;
+		}
+
 	    if (shouldRenderPlayer) {
 			g2d.setColor(this.color);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, innerAlpha));
@@ -137,10 +143,10 @@ public class Player extends GameObject {
 	public void dash() {
 		if (this.canDash && ((this.velX > 0 || this.velY > 0) || (this.velX < 0 || this.velY < 0))) {
 			SimpleAudioPlayer.playSound(AudioRegistry.DASH);
-			hud.setSpeed(10);
-			dashCooldown = 100;
+			hud.setSpeed(readSettingsJson().path("dashSpeed").asInt());
+			dashCooldown = readSettingsJson().path("dashCooldown").asInt();
 			canDash = false;
-			dashTime = 15;
+			dashTime = readSettingsJson().path("dashTime").asInt();
 			dashing = true;
 		}
 	}
@@ -153,21 +159,32 @@ public class Player extends GameObject {
 			GameObject tempObject = handler.object.get(i);
 
             // Cooldown in milliseconds
-            long collisionCooldown = 500;
-            if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy && !dashing) {
+            long collisionCooldown = readSettingsJson().path("collisionCooldown").asLong();
+            if(tempObject.getId().getDamage() != 0 && tempObject instanceof Enemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
                     if (((Enemy) tempObject).enabled) {
+						if (dashing && readSettingsJson().path("dashDoesInvul").asBoolean()) {
+							return;
+						}
                         SimpleAudioPlayer.playDamageSound(AudioRegistry.PLAYER_HURT, tempObject.getId().getDamage());
-                        hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
+                        hud.setHealth((float) (hud.getHealth() - (tempObject.getId().getDamage() * readSettingsJson().path("damageMulti").asDouble())));
                         lastCollisionTime = currentTime;
                     }
                 }
-			} else if (tempObject.getId().getDamage() != 0 && tempObject instanceof DamageTrail && !dashing) {
+			} else if (tempObject.getId().getDamage() != 0 && tempObject instanceof DamageTrail) {
                 if (getBounds().intersects(tempObject.getBounds())) {
 					if (!(((DamageTrail) tempObject).object.equals(this))) {
+						if (dashing && readSettingsJson().path("dashDoesInvul").asBoolean()) {
+							return;
+						}
+
+						if (!readSettingsJson().path("allowPvPDamage").asBoolean()) {
+							return;
+						}
+
 						SimpleAudioPlayer.playDamageSound(AudioRegistry.PLAYER_HURT, tempObject.getId().getDamage());
 						hud.setHealth(hud.getHealth() - tempObject.getId().getDamage());
-						lastCollisionTime = currentTime + 500;
+						lastCollisionTime = currentTime + readSettingsJson().path("PvPCollisionCooldownAdd").asLong();
 						handler.removeObject(tempObject);
 						return;
 					}

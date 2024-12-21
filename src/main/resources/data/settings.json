@@ -1,0 +1,19 @@
+{
+  "damageMulti": 1.0,
+  "allowDash": true,
+  "allowPvPDamage": true,
+  "doPvPDamageAlways": false,
+  "dashDoesInvul": true,
+  "dashCooldown": 100,
+  "dashSpeed": 10,
+  "dashTime": 15,
+  "collisionCooldown": 500,
+  "PvPCollisionCooldownAdd": 500,
+  "normalModeName": "normal",
+  "hardModeName": "hard",
+  "lunaticModeName": "lunatic",
+  "maxFrames": 60,
+  "tickAmount": 60.0,
+  "windowWidth": 940,
+  "debug": false
+}

@@ -15,6 +15,7 @@ import com.kagaries.ui.hud.HUD;
 import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
+import com.kagaries.util.json.JsonReader;
 
 public class KeyInput extends KeyAdapter{
 	
@@ -126,7 +127,7 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_D) { tempObject.setVelX(HUD.speed); keyDown[2]=true; }
 				if(key == KeyEvent.VK_A) { tempObject.setVelX(-HUD.speed); keyDown[3]=true; }
 
-				if(key == KeyEvent.VK_E) {
+				if(key == KeyEvent.VK_E && JsonReader.readSettingsJson().path("allowDash").asBoolean()) {
 					((Player) tempObject).dash();
 					if (keyDown[0]) {
 						tempObject.setVelY(-HUD.speed);
@@ -176,7 +177,7 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_LEFT) { tempObject.setVelX(-HUD2.speed); keyDown[6]=true; }
 					if(key == KeyEvent.VK_RIGHT) { tempObject.setVelX(HUD2.speed); keyDown[7]=true; }
 
-				if(key == 17 && e.getKeyLocation() == KeyEvent.KEY_LOCATION_RIGHT) {
+				if(key == 17 && e.getKeyLocation() == KeyEvent.KEY_LOCATION_RIGHT && JsonReader.readSettingsJson().path("allowDash").asBoolean()) {
 					((Player) tempObject).dash();
 					if (keyDown[4]) {
 						tempObject.setVelY(-HUD2.speed);
@@ -199,7 +200,7 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_J) { tempObject.setVelX(-HUD3.speed); keyDown[10]=true; }
 					if(key == KeyEvent.VK_L) { tempObject.setVelX(HUD3.speed); keyDown[11]=true; }
 
-				if(key ==  KeyEvent.VK_SEMICOLON) {
+				if(key ==  KeyEvent.VK_SEMICOLON && JsonReader.readSettingsJson().path("allowDash").asBoolean()) {
 					((Player) tempObject).dash();
 					if (keyDown[8]) {
 						tempObject.setVelY(-HUD3.speed);
@@ -222,7 +223,7 @@ public class KeyInput extends KeyAdapter{
 					if(key == KeyEvent.VK_F) { tempObject.setVelX(-HUD4.speed); keyDown[14]=true; }
 					if(key == KeyEvent.VK_H) { tempObject.setVelX(HUD4.speed); keyDown[15]=true; }
 
-				if(key ==  KeyEvent.VK_Y) {
+				if(key ==  KeyEvent.VK_Y && JsonReader.readSettingsJson().path("allowDash").asBoolean()) {
 					((Player) tempObject).dash();
 					if (keyDown[12]) {
 						tempObject.setVelY(-HUD4.speed);

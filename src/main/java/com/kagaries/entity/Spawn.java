@@ -92,63 +92,6 @@ public class Spawn {
 							}
 						}
 					}
-
-					if (handler.getLevel() == 8.5) {
-						handler.clearEnemys();
-						handler.allowRevive();
-						handler.addObject(new EnemyBoss(Game.WIDTH / 2, -96, ID.EnemyBoss, handler));
-
-					}
-
-					if (handler.getLevel() == 12.0) {
-						handler.clearEnemys();
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2 - 34, 5, ID.ShooterEnemy, handler));
-					}
-
-					if (handler.getLevel() == 14.5) {
-						handler.clearEnemys();
-						handler.allowRevive();
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-					}
-
-					if (handler.getLevel() == 16.5) {
-						handler.clearEnemys();
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
-						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-					}
-					if (handler.getLevel() == 18.5) {
-						handler.clearEnemys();
-						handler.allowRevive();
-						handler.addObject(new EnemyBoss2(Game.WIDTH / 2, -96, ID.EnemyBoss2, handler));
-					}
-					if (handler.getLevel() == 25) {
-						handler.clearEnemys();
-						handler.allowRevive();
-					}
-					if (handler.getLevel() == 25.5) {
-						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));
-						handler.addObject(new LunaiticShooterEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticShooterEnemy, handler));
-						handler.addObject(new LunaiticEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticEnemy, handler));
-						handler.addObject(new LunaiticFastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.LunaiticFastEnemy, handler));
-					}
 				} else if (game.diff == 1) {
 					if (handler.getLevel() == 1.5) {
 						handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.HardEnemy, handler));

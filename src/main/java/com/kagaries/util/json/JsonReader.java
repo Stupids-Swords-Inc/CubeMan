@@ -4,16 +4,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kagaries.main.Game;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class JsonReader {
-    public static JsonNode readJson(String jsonName, String path) throws IOException {
+    public static JsonNode readJson(String jsonName, String path) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(Game.resourceLoader.getResourceAsStream(path + "/" + jsonName + ".json"));
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = objectMapper.readTree(Game.resourceLoader.getResourceAsStream(path + "/" + jsonName + ".json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return jsonNode;
     }
 
-    public static InputStream getJson(String jsonName, String path) {
-        return Game.resourceLoader.getResourceAsStream(path + "/" + jsonName + ".json");
+    public static JsonNode readSettingsJson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readTree(Game.resourceLoader.getResourceAsStream("data/settings.json"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
