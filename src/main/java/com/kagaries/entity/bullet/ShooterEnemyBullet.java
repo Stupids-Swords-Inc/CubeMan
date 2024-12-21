@@ -13,14 +13,11 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 public class ShooterEnemyBullet extends Enemy {
-	
-	private Handler handler;
+
 	Random r = new Random();
 
 	public ShooterEnemyBullet(int x, int y, ID id, Handler handler) {
 		super(x, y, id, handler);
-		
-		this.handler = handler;
 		
 		velX = (r.nextInt(5 - -5) + -5);
 		velY = 5;
@@ -38,9 +35,9 @@ public class ShooterEnemyBullet extends Enemy {
 		//if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;
 		//if(x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
 		
-		if(y >= Game.HEIGHT) handler.removeObject(this);
+		if(y >= Game.HEIGHT) this.handler.removeObject(this);
 		
-		handler.addObject(new Trail(x, y, ID.Trail, Color.white, 8, 8, 0.1f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, Color.white, 8, 8, 0.25f, handler));
 	}
 
 	@Override

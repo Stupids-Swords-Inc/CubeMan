@@ -1,0 +1,135 @@
+{
+  "levels": "25.0",
+  "spawns": {
+    "1.5": [
+      {
+        "id": "HardEnemy",
+        "amount": 3
+      }
+    ],
+    "3.0": [
+      {
+        "id": "FastEnemy"
+      },
+      {
+        "id": "HardEnemy"
+      },
+      {
+        "id": "ShooterEnemy",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          }
+        }
+      }
+    ],
+    "4.0": [
+      {
+        "id": "FastEnemy"
+      },
+      {
+        "id": "HardEnemy"
+      }
+    ],
+    "5.5": [
+      {
+        "id": "HardEnemy"
+      },
+      {
+        "id": "ShooterEnemy",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          }
+        }
+      }
+    ],
+    "8.5": [
+      {
+        "clear": true,
+        "id": "EnemyBoss",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": -96
+          }
+        }
+      }
+    ],
+    "9.5": [
+      {
+        "id": "FastEnemy",
+        "amount": 2
+      },
+      {
+        "id": "BasicEnemy",
+        "amount": 3
+      }
+    ],
+    "12.0": [
+      {
+        "clear": true,
+        "revive": true,
+        "id": "ShooterEnemy",
+        "amount": 2,
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          },
+          "2": {
+            "x": 260,
+            "y": 5
+          }
+        }
+      },
+      {
+        "id": "HardEnemy",
+        "amount": 3
+      }
+    ],
+    "13.5": [
+      {
+        "id": "FastEnemy",
+        "amount": 2
+      },
+      {
+        "id": "LunaiticFastEnemy"
+      }
+    ],
+    "15.0": [
+      {
+        "id": "HardEnemy"
+      },
+      {
+        "id": "BasicEnemy",
+        "amount": 2
+      }
+    ],
+    "18.5": [
+      {
+        "clear": true,
+        "id": "EnemyBoss2",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": -96
+          }
+        }
+      },
+      {
+        "id": "FastEnemy",
+        "amount": 2
+      },
+      {
+        "id": "HardEnemy"
+      },
+      {
+        "id": "BasicEnemy",
+        "amount": 3
+      }
+    ]
+  }
+}

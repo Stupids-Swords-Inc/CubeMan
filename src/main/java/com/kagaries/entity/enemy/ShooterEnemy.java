@@ -28,7 +28,7 @@ public class ShooterEnemy extends Enemy {
 		x += velX;
 		y += velY;
 		
-			int spawn = r.nextInt(17);
+			int spawn = r.nextInt(30);
 			if(spawn == 0) handler.addObject(new ShooterEnemyBullet((int)x+48, (int)y+48, ID.BasicEnemy, handler));
 			
 			if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;

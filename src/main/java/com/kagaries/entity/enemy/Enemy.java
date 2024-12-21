@@ -10,7 +10,7 @@ import java.awt.Rectangle;
 
 public abstract class Enemy extends GameObject {
 
-	Handler handler;
+	protected Handler handler;
 	final Color color;
 	float timeToSpawn;
 
