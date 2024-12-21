@@ -3,9 +3,6 @@ package com.kagaries.main;
 import com.kagaries.entity.ID;
 import com.kagaries.entity.MenuParticle;
 import com.kagaries.entity.Spawn;
-import com.kagaries.player.entity.CirclePlayer;
-import com.kagaries.player.entity.Player;
-import com.kagaries.player.entity.RoundedPlayer;
 import com.kagaries.player.input.KeyInput;
 import com.kagaries.ui.Window;
 import com.kagaries.ui.hud.HUD;
@@ -28,7 +25,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	public static boolean paused = false;
-	private final Handler handler;
+	public static Handler handler = null;
 
 	public static HUD hud;
 	public static HUD2 hud2;
@@ -36,7 +33,7 @@ public class Game extends Canvas implements Runnable{
 	public static HUD4 hud4;
 	public static Canvas window;
 
-	private final Spawn spawner;
+	public final Spawn spawner;
 	public int diff = 0;
 	public static int winner = 0;
 	

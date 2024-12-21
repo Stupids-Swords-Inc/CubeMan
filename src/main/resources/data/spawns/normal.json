@@ -1,0 +1,47 @@
+{
+  "levels": "25.0",
+  "spawns": {
+    "1.0": [
+      {
+        "id": "BasicCircleEnemy"
+      },
+      {
+        "id": "SlowEnemy",
+        "amount": 2
+      },
+      {
+        "id": "BasicEnemy"
+      },
+      {
+        "id": "RandomEnemy"
+      }
+    ],
+    "3.0": [
+      {
+        "id": "FastEnemy"
+      }
+    ],
+    "5.5": [
+      {
+        "id": "BasicEnemy"
+      },
+      {
+        "id": "FastEnemy"
+      }
+    ],
+    "7.5": [
+      {
+        "id": "FastEnemy"
+      },
+      {
+        "id": "ShooterEnemy",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          }
+        }
+      }
+    ]
+  }
+}

@@ -54,4 +54,16 @@ public class ResourceLoader {
             getResourceAsStream(string);
         }
     }
+
+    public String getResourcePath() {
+        return "src/main/resources";
+    }
+
+    public String getDataPath() {
+        return getResourcePath() + "/data";
+    }
+
+    public String getAssetsPath() {
+        return getResourcePath() + "/assets";
+    }
 }

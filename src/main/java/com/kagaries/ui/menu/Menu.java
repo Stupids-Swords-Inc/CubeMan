@@ -3,6 +3,7 @@ package com.kagaries.ui.menu;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import com.kagaries.audio.AudioRegistry;
 import com.kagaries.audio.SimpleAudioPlayer;
@@ -167,7 +168,12 @@ public class Menu extends MouseAdapter {
 		if(mouseOver(mx, my, 210, 150)) {
 			if(Game.gameState == STATE.SelectP1) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
-				Game.gameState = STATE.GameP1;
+                try {
+                    game.spawner.setJson("normal");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                Game.gameState = STATE.GameP1;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
 				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));

@@ -42,7 +42,7 @@ public class LunaiticFastEnemy extends Enemy {
 		x = Game.clamp(x, -1, Game.WIDTH - 48);
 		y = Game.clamp(y, -1, Game.HEIGHT - 71);
 		
-		handler.addObject(new Trail(x, y, ID.Trail, this.id.getTrailColor(), 25, 25, 0.1f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, Color.CYAN, 25, 25, 0.1f, handler));
 	}
 
 	

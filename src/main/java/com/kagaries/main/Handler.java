@@ -52,7 +52,7 @@ public class Handler {
 	
 	public void render(Graphics g) {
 		for(int i = 0; i < object.size(); i++) {
-			if (object.get(i) != null) {
+			if (object != null) {
 				GameObject tempObject = object.get(i);
 
 				if (tempObject != null) {
@@ -117,8 +117,18 @@ public class Handler {
 		}
 	}
 
+	/**
+	 * @Deprecated addObjectFromStringID should be used over this in most cases
+	 *
+	 * @param object Object to be added for ticking and rendering
+	 */
+	@Deprecated(since = "0.0.22")
 	public void addObject(GameObject object) {
 		this.object.add(object);
+	}
+
+	public void addObjectFromStringID(String id, int x, int y) {
+		this.object.add((GameObject) ID.createInstanceFromName(id, x, y, ID.getFromName(id), this));
 	}
 	
 	public void removeObject(GameObject object) {

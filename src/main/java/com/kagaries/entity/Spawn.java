@@ -1,17 +1,22 @@
 package com.kagaries.entity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.kagaries.entity.enemy.*;
 import com.kagaries.main.Game;
 import com.kagaries.main.Game.STATE;
 import com.kagaries.main.Handler;
+import com.kagaries.util.json.JsonReader;
 
 public class Spawn {
 	
 	private final Handler handler;
 	private final Game game;
 	private final Random r = new Random();
+	private JsonNode json;
 	
 	public static int scoreKeep = 0;
 	
@@ -19,38 +24,73 @@ public class Spawn {
 		this.handler = handler;
 		this.game = game;
 	}
+
+	public void setJson(String jsonName, String path) throws IOException {
+		this.json = JsonReader.readJson(jsonName, path);
+	}
+
+	public void setJson(String jsonName) throws IOException {
+		this.json = JsonReader.readJson(jsonName, "data/spawns");
+	}
 	
 	public void tick() {
 		scoreKeep++;
 
 		if (Game.gameState == STATE.GameP1 || Game.gameState == STATE.GameP2 || Game.gameState == STATE.GameP4) {
 			if (scoreKeep >= 150) {
+				JsonNode spawnList = json.path("spawns");
 				scoreKeep = 0;
 				Handler.setLevel(handler.getLevel() + 0.5f);
 
 				if (game.diff == 0) {
-					if (handler.getLevel() == 1.0) {
-						handler.addObject(new TestCircleEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicCircleEnemy, handler));
-						handler.addObject(new SlowEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SlowEnemy, handler));
-						handler.addObject(new SlowEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SlowEnemy, handler));
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new RandomEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.RandomEnemy, handler));
-						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+					if (this.json.path("levels") != null) {
+						if (String.valueOf(handler.getLevel()).equals(this.json.path("levels").asText())) {
+							handler.clearEnemys();
+							Game.gameState = STATE.End;
+						}
 					}
 
-					if (handler.getLevel() == 3.0) {
-						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-					}
+					if (spawnList.path(String.valueOf(Handler.level)) != null) {
+						JsonNode array = spawnList.get(String.valueOf(Handler.level));
+						if (array != null) {
+							if (array.isArray()) {
+								for (JsonNode element : array) {
+									if (!element.has("id")) {
+										Game.getLogger().error("ID IS REQUIRED IN AN ENEMY ELEMENT");
+										Game.getLogger().error("EXAMPLE: \"id\": \"BasicCircleEnemy\"");
+										Game.getLogger().error("FOR FURTHER DETAILS [LINK TO REFERENCE HERE]");
+										break;
+									}
 
-					if (handler.getLevel() == 5.5) {
-						handler.allowRevive();
-						handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-					}
+									String id = element.path("id").asText();
+									int amount = element.has("amount") ? element.path("amount").asInt() : 1;
+									boolean clear = element.has("clear") && element.path("clear").asBoolean();
+									boolean revive = element.has("revive") && element.path("revive").asBoolean();
+									JsonNode positions = element.has("positions") ? element.path("positions") : null;
 
-					if (handler.getLevel() == 7.5) {
-						handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
-						handler.addObject(new ShooterEnemy(Game.WIDTH / 2, 5, ID.ShooterEnemy, handler));
+									if (clear) {
+										handler.clearEnemys();
+									}
+
+									if (revive) {
+										handler.allowRevive();
+									}
+
+									for (int i = 0; i < amount; i++) {
+										if (positions != null && positions.has(String.valueOf(i + 1))) {
+											JsonNode positionNode = positions.path(String.valueOf(i + 1));
+											int x = positionNode.path("x").asInt();
+											int y = positionNode.path("y").asInt();
+											handler.addObjectFromStringID(id, x, y);
+										} else {
+											handler.addObjectFromStringID(id, r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50));
+										}
+									}
+								}
+							} else {
+								Game.getLogger().error("ENEMY SPAWNS SHOULD BE AN ARRAY");
+							}
+						}
 					}
 
 					if (handler.getLevel() == 8.5) {
