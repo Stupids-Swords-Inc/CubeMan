@@ -52,13 +52,12 @@ public class Handler {
 	
 	public void render(Graphics g) {
 		for(int i = 0; i < object.size(); i++) {
-			if (object.isEmpty()) {
-				return;
-			}
-			GameObject tempObject = object.get(i);
+			if (object.get(i) != null) {
+				GameObject tempObject = object.get(i);
 
-			if (tempObject != null) {
-				tempObject.render(g);
+				if (tempObject != null) {
+					tempObject.render(g);
+				}
 			}
 		}
 	}
