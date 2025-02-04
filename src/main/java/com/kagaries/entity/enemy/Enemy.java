@@ -4,9 +4,7 @@ import com.kagaries.entity.GameObject;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 
 public abstract class Enemy extends GameObject {
 
@@ -43,8 +41,14 @@ public abstract class Enemy extends GameObject {
 	public abstract void enableTick();
 
 	public void render(Graphics g) {
-		g.setColor(this.color);
-		g.fillRect((int)x, (int)y, 16, 16);
+		Graphics2D g2d = (Graphics2D) g;
+
+		if (!enabled) {
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		}
+
+		g2d.setColor(this.color);
+		g2d.fillRect((int)x, (int)y, 16, 16);
 	}
 
 }

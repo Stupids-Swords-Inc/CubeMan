@@ -1,0 +1,35 @@
+{
+  "size": {
+    "x": 16,
+    "y": 16,
+    "hitbox": {
+      "x": 16,
+      "y": 16
+    }
+  },
+  "velocity": {
+    "x": 8,
+    "y": 6
+  },
+  "color": {
+    "r": 0,
+    "g": 255,
+    "b": 0
+  },
+  "trail": {
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 0
+    },
+    "size": {
+      "x": 16,
+      "y": 16
+    },
+    "life": 0.15
+  },
+  "damage": 35,
+  "graze": 1,
+  "shape": "circle",
+  "spawnTime": 50
+}

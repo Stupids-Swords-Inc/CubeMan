@@ -10,7 +10,6 @@ import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 import com.kagaries.ui.menu.Menu;
-import com.kagaries.util.json.JsonReader;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -217,6 +216,7 @@ public class Game extends Canvas implements Runnable{
 			handler.render(g);
 			menu.render(g);
 		}
+
 		if(paused) {
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("arial", Font.BOLD, 50));

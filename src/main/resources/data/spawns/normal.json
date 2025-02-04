@@ -1,9 +1,9 @@
 {
-  "levels": "25.0",
+  "levels": 25.0,
   "spawns": {
     "1.0": [
       {
-        "id": "BasicCircleEnemy"
+        "id": "BasicEnemy"
       },
       {
         "id": "SlowEnemy",

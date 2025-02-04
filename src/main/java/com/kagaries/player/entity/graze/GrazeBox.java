@@ -2,6 +2,7 @@ package com.kagaries.player.entity.graze;
 
 import com.kagaries.entity.GameObject;
 import com.kagaries.main.Game;
+import com.kagaries.entity.enemy.CustomEnemy;
 import com.kagaries.ui.hud.HUD;
 import com.kagaries.main.Handler;
 import com.kagaries.entity.ID;
@@ -80,6 +81,12 @@ public class GrazeBox extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					hud.setHealth(hud.getHealth() + tempObject.getId().getGraze());
 					hud.setGraze(hud.getGraze() + tempObject.getId().getGraze());
+					lastCollisionTime = currentTime;
+				}
+			} else if (tempObject instanceof CustomEnemy) {
+				if (getBounds().intersects(tempObject.getBounds())) {
+					hud.setHealth(hud.getHealth() + ((CustomEnemy) tempObject).getGraze());
+					hud.setGraze(hud.getGraze() + ((CustomEnemy) tempObject).getGraze());
 					lastCollisionTime = currentTime;
 				}
 			} else if (currentTime - lastCollisionTime < collisionCooldown || blinking) {

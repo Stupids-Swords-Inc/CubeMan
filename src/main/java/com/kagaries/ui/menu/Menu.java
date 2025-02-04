@@ -322,42 +322,61 @@ public class Menu extends MouseAdapter {
 		if(mouseOver(mx, my, 210, 350)) {
 			if(Game.gameState == STATE.SelectP1) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("lunaticModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.GameP1;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
-				handler.addObject(new LunaiticEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.LunaiticEnemy, handler));
-				handler.addObject(new LunaiticEnemy(Game.WIDTH/3+164, Game.HEIGHT/3+128, ID.LunaiticEnemy, handler));
 				game.diff = 2;
 			} else if(Game.gameState == STATE.SelectP2) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("lunaticModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.GameP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
-				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
 			} else if(Game.gameState == STATE.SelectP4) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("lunaticModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.GameP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
-				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
 			} else if(Game.gameState == STATE.PvPP2Select) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("lunaticModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.PvPP2;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
-				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
 			} else if(Game.gameState == STATE.PvPP4Select) {
 				SimpleAudioPlayer.playSound(AudioRegistry.MENU_SELECT);
+				try {
+					game.spawner.setJson(JsonReader.readSettingsJson().path("lunaticModeName").asText());
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 				Game.gameState = STATE.PvPP4;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				handler.clearEnemys();
-				handler.addObject(new BasicEnemy(Game.WIDTH/3-164, Game.HEIGHT/2-128, ID.BasicEnemy, handler));
 				handler.clearEnemys();
 				game.diff = 2;
 			}

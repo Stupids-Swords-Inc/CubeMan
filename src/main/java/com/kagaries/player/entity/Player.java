@@ -3,6 +3,7 @@ package com.kagaries.player.entity;
 import com.kagaries.audio.AudioRegistry;
 import com.kagaries.audio.SimpleAudioPlayer;
 import com.kagaries.entity.GameObject;
+import com.kagaries.entity.enemy.CustomEnemy;
 import com.kagaries.entity.enemy.Enemy;
 import com.kagaries.entity.trail.DamageTrail;
 import com.kagaries.entity.trail.Trail;
@@ -36,10 +37,6 @@ public class Player extends GameObject {
 	final Color color;
 	public final HudInterface hud;
 	private final GrazeBox grazeBox;
-	private Color currentPanicColor;
-	private boolean runningPanic = false;
-
-	Color[] color1 = {Color.RED};
 
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
@@ -98,10 +95,6 @@ public class Player extends GameObject {
 		if (!isBlinking && !shouldRenderPlayer) {
 			shouldRenderPlayer = true;
 		}
-
-		if (runningPanic && this.hud.getHealth() > 15) {
-			runningPanic = false;
-		}
 	}
 	
 	
@@ -110,7 +103,6 @@ public class Player extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		float alpha = 0.5f;
-		float healthAlpha = 1.0f;
 		float innerAlpha = this.canDash ? 1f : 0.25f;
 
 		if (!readSettingsJson().path("allowDash").asBoolean()) {
@@ -123,20 +115,6 @@ public class Player extends GameObject {
 			g2d.fillRect((int)x + 10, (int)y + 10, 12, 12);
 			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 	        g2d.fillRect((int)x, (int)y, 32, 32);
-			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, healthAlpha));
-			if (hud.getHealth() > 50) {
-				g2d.setColor(Color.GREEN);
-			} else if (hud.getHealth() < 50 && hud.getHealth() > 25) {
-				g2d.setColor(Color.ORANGE);
-			} else if (hud.getHealth() < 25 && hud.getHealth() > 10) {
-				g2d.setColor(Color.RED);
-			} else if (hud.getHealth() < 15) {
-				if (!runningPanic) {
-					color1 = new Color[]{startPanicHealth()};
-				}
-				g2d.setColor(color1[0] == null ? Color.BLACK : color1[0]);
-			}
-			g2d.fillRect((int)x, (int)y, 5, 5);
 	    }
 	}
 
@@ -171,6 +149,17 @@ public class Player extends GameObject {
                         lastCollisionTime = currentTime;
                     }
                 }
+			} else if (tempObject instanceof CustomEnemy) {
+				if (getBounds().intersects(tempObject.getBounds())) {
+					if (((Enemy) tempObject).enabled) {
+						if (dashing && readSettingsJson().path("dashDoesInvul").asBoolean()) {
+							return;
+						}
+						SimpleAudioPlayer.playDamageSound(AudioRegistry.PLAYER_HURT, ((CustomEnemy) tempObject).getDamage());
+						hud.setHealth((float) (hud.getHealth() - (((CustomEnemy) tempObject).getDamage() * readSettingsJson().path("damageMulti").asDouble())));
+						lastCollisionTime = currentTime;
+					}
+				}
 			} else if (tempObject.getId().getDamage() != 0 && tempObject instanceof DamageTrail) {
                 if (getBounds().intersects(tempObject.getBounds())) {
 					if (!(((DamageTrail) tempObject).object.equals(this))) {
@@ -218,31 +207,6 @@ public class Player extends GameObject {
 						}
 			        }
 			    }, 0, blinkInterval);
-			}
-
-			private Color startPanicHealth() {
-				this.runningPanic = true;
-				Timer timer = new Timer();
-
-
-
-				int blinkInterval = 50;
-				timer.scheduleAtFixedRate(new TimerTask() {
-					@Override
-					public void run() {
-						if (color1[0] == Color.BLACK) {
-							color1[0] = Color.RED;
-						} else {
-							color1[0] = Color.BLACK;
-						}
-
-						if (!runningPanic) {
-							timer.cancel();
-						}
-					}
-				}, 0, blinkInterval);
-
-				return color1[0];
 			}
 
 			private void stopBlinking() {

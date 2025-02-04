@@ -1,8 +1,11 @@
 package com.kagaries.entity;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.kagaries.entity.enemy.*;
 import com.kagaries.main.Game;
+import com.kagaries.main.Handler;
 import com.kagaries.ui.hud.HudInterface;
+import com.kagaries.util.json.JsonReader;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
@@ -25,8 +28,8 @@ public enum ID {
 	HardEnemy(com.kagaries.entity.enemy.HardEnemy.class, Color.ORANGE,37, 1),
 	LunaiticEnemy(com.kagaries.entity.enemy.LunaiticEnemy.class, Color.YELLOW, 51, 2),
 	LunaiticFastEnemy(com.kagaries.entity.enemy.LunaiticFastEnemy.class, Color.YELLOW, 41, 3),
-	LunaiticShooterEnemy(Color.LIGHT_GRAY, 75, 0),
-	Friend(Color.GREEN,50, 0),
+	LunaiticShooterEnemy(com.kagaries.entity.enemy.LunaiticShooterEnemy.class, Color.LIGHT_GRAY, 75, 0),
+	Friend(com.kagaries.entity.Friend.class, Color.GREEN,50, 0),
 	ShooterEnemy(com.kagaries.entity.enemy.ShooterEnemy.class, Color.GRAY,50, 0),
 	SmartEnemy(com.kagaries.entity.enemy.BasicEnemy.class, Color.RED, 35, 2),
 	//Boss
@@ -37,6 +40,7 @@ public enum ID {
 	//Misc
 	MenuParticle(),
 	Trail(),
+	CustomEnemy(),
 	DamageTrail(Color.WHITE, 8, 0);
 
 	private final Class aClass;
@@ -109,7 +113,12 @@ public enum ID {
 	}
 
 	public static ID getFromName(String name) {
-		return ID.valueOf(name);
+		try {
+			return ID.valueOf(name);
+		} catch (IllegalArgumentException illegalArgumentException) {
+			Game.getLogger().info("Failed to find ID for {}, Skipping", name);
+			return null;
+		}
 	}
 
 	public static Object createInstanceFromName(String name, Object... args) {
@@ -143,5 +152,38 @@ public enum ID {
 			System.err.println("Error creating instance for ID '" + name + "': " + e.getMessage());
 			return null;
 		}
+	}
+
+	public static Object createInstanceFromJson(String name, int x, int y, Handler handler) {
+		JsonNode json = JsonReader.readJson(name, "data/entity");
+
+		int xSize = json.path("size").path("x").asInt();
+		int ySize = json.path("size").path("y").asInt();
+
+		int hbXSize = json.path("size").path("hitbox").path("x").asInt();
+		int hbYSize = json.path("size").path("hitbox").path("y").asInt();
+
+		int colorR = json.path("color").path("r").asInt();
+		int colorG = json.path("color").path("g").asInt();
+		int colorB = json.path("color").path("b").asInt();
+
+		int damage = json.path("damage").asInt();
+		int graze = json.path("graze").asInt();
+
+		String shape = json.path("shape").asText();
+
+		int velX = json.path("velocity").path("x").asInt();
+		int velY = json.path("velocity").path("y").asInt();
+
+		int rT = json.path("trail").path("color").path("r").asInt();
+		int gT = json.path("trail").path("color").path("g").asInt();
+		int bT = json.path("trail").path("color").path("b").asInt();
+
+		double tLife = json.path("trail").path("life").asDouble();
+
+		int tSizeX = json.path("trail").path("size").path("x").asInt();
+		int tSizeY = json.path("trail").path("size").path("y").asInt();
+
+		return new CustomEnemy(x, y, handler, (float) json.path("spawnTime").asDouble(), xSize, ySize, hbXSize, hbYSize, colorR, colorG, colorB, damage, graze, shape, velX, velY, rT, gT, bT, (float) tLife, tSizeX, tSizeY);
 	}
 }

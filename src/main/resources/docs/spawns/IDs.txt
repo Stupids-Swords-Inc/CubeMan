@@ -1,0 +1,27 @@
+BasicEnemy
+FastEnemy
+BasicCircleEnemy
+RandomEnemy
+SlowEnemy
+HardEnemy
+LunaiticEnemy
+LunaiticFastEnemy
+LunaiticShooterEnemy
+ShooterEnemy
+SmartEnemy
+EnemyBoss
+EnemyBoss2
+LunaiticBoss
+LunaiticBoss2
+
+--POSSIBLE CRASHING IF USED--
+
+Player
+Player2
+Player3
+Player4
+GrazeBox
+Trail
+DamageTrail
+MenuParticle
+Friend

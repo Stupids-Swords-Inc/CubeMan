@@ -1,0 +1,181 @@
+{
+  "levels": 27.5,
+  "spawns": {
+    "1.5": [
+      {
+        "id": "LunaiticEnemy",
+        "amount": 2
+      }
+    ],
+    "2.5": [
+      {
+        "id": "LunaiticFastEnemy",
+        "amount": 2
+      }
+    ],
+    "4.0": [
+      {
+        "id": "LunaiticShooterEnemy",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          }
+        }
+      }
+    ],
+    "5.5": [
+      {
+        "clear": true,
+        "id": "LunaiticShooterEnemy",
+        "amount": 5,
+        "potitions": {
+          "1": {
+            "x": 470,
+            "y": 5
+          },
+          "2": {
+            "x": 370,
+            "y": 10
+          },
+          "3": {
+            "x": 570,
+            "y": 5
+          },
+          "4": {
+            "x": 270,
+            "y": 10
+          },
+          "5": {
+            "x": 670,
+            "y": 5
+          }
+        }
+      }
+    ],
+    "7.0": [
+      {
+        "id": "LunaiticEnemy",
+        "amount": 2
+      },
+      {
+        "id": "LunaiticFastEnemy"
+      }
+    ],
+    "9.5": [
+      {
+        "clear": true
+      }
+    ],
+    "10.0": [
+      {
+        "id": "LunaiticEnemy"
+      },
+      {
+        "id": "LunaiticFastEnemy"
+      }
+    ],
+    "10.5": [
+      {
+        "id": "LunaiticEnemy"
+      },
+      {
+        "id": "LunaiticFastEnemy"
+      }
+    ],
+    "11.0": [
+      {
+        "id": "LunaiticEnemy"
+      },
+      {
+        "id": "LunaiticFastEnemy"
+      }
+    ],
+    "12.5": [
+      {
+        "clear": true,
+        "id": "LunaiticBoss",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": -96
+          }
+        }
+      }
+    ],
+    "16.5": [
+      {
+        "clear": true,
+        "revive": true
+      }
+    ],
+    "17.5": [
+      {
+        "id": "LunaiticFastEnemy",
+        "amount": 9,
+        "positions": {
+          "1": {
+            "x": 100,
+            "y": 5
+          },
+          "2": {
+            "x": 200,
+            "y": 6
+          },
+          "3": {
+            "x": 300,
+            "y": 7
+          },
+          "4": {
+            "x": 400,
+            "y": 8
+          },
+          "5": {
+            "x": 500,
+            "y": 9
+          },
+          "6": {
+            "x": 600,
+            "y": 5
+          },
+          "7": {
+            "x": 700,
+            "y": 6
+          },
+          "8": {
+            "x": 800,
+            "y": 7
+          },
+          "9": {
+            "x": 900,
+            "y": 8
+          }
+        }
+      }
+    ],
+    "19.0": [
+      {
+        "clear": true,
+        "id": "LunaiticEnemy",
+        "amount": 4
+      }
+    ],
+    "21.5": [
+      {
+        "id": "LunaiticBoss2",
+        "positions": {
+          "1": {
+            "x": 470,
+            "y": -96
+          }
+        }
+      }
+    ],
+    "24.5": [
+      {
+        "id": "LunaiticFastEnemy",
+        "amount": 3
+      }
+    ]
+  }
+}

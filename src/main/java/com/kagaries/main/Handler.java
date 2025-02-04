@@ -130,7 +130,11 @@ public class Handler {
 	public void addObjectFromStringID(String id, int x, int y) {
 		this.object.add((GameObject) ID.createInstanceFromName(id, x, y, ID.getFromName(id), this));
 	}
-	
+
+	public void addObjectFromStringJSON(String name, int x, int y) {
+		this.object.add((GameObject) ID.createInstanceFromJson(name, x, y, this));
+	}
+
 	public void removeObject(GameObject object) {
 		this.object.remove(object);
 	}
