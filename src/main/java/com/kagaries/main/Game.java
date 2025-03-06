@@ -10,8 +10,8 @@ import com.kagaries.ui.hud.HUD2;
 import com.kagaries.ui.hud.HUD3;
 import com.kagaries.ui.hud.HUD4;
 import com.kagaries.ui.menu.Menu;
-import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -141,7 +141,7 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	public static Logger getLogger() {
-		return LogUtils.getLogger();
+		return LoggerFactory.getLogger(Game.class);
 	}
 
 	public static ResourceLoader getResourceLoader() {

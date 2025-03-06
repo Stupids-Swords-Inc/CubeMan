@@ -37,21 +37,19 @@
       <version>3.0.2</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>2.0.9</version>
+      <scope>runtime</scope>
+    </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/it.unimi.dsi/fastutil -->
     <dependency>
       <groupId>it.unimi.dsi</groupId>
       <artifactId>fastutil</artifactId>
       <version>8.5.15</version>
-    </dependency>
-
-
-
-    <!-- https://mvnrepository.com/artifact/com.mojang/logging -->
-    <dependency>
-      <groupId>com.mojang</groupId>
-      <artifactId>logging</artifactId>
-      <version>1.1.1</version>
     </dependency>
 
     <dependency>
